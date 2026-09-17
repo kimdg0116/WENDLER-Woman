@@ -1,5 +1,5 @@
 /* 웬들러 5·3·1 — 오프라인 캐시 */
-var VERSION = "26.09.17-3";
+var VERSION = "26.09.17-4";
 var CACHE = "w531-v" + VERSION;
 var CORE = ["./", "./index.html", "./manifest.webmanifest",
             "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png"];
@@ -28,6 +28,7 @@ self.addEventListener("activate", function(e){
 
 self.addEventListener("fetch", function(e){
   if (e.request.method !== "GET") return;
+  if (e.request.url.indexOf("version.json") >= 0) return;
   e.respondWith(
     caches.match(e.request).then(function(hit){
       if (hit) return hit;

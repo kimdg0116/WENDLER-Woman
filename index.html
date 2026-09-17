@@ -410,7 +410,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.17-3";
+  var APP_VERSION = "26.09.17-4";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -1148,7 +1148,7 @@
       if (isSup && e.lab) s.title = e.lab;
       var x = document.createElement("div"); x.className = "e";
       x.textContent = isSup
-        ? "Vol " + Math.round(toDisp(e.lb) * (e.sets || 1) * e.reps).toLocaleString()
+        ? "Vol " + Math.round(toDisp(e.lb) * (e.sets || 1) * e.reps).toLocaleString() + " " + state.unit
         : "e1RM " + fmt(roundBar(est));
       var del = document.createElement("button");
       del.type = "button"; del.className = "del"; del.textContent = "×";
@@ -1212,7 +1212,6 @@
   }
   applyTheme();
   $("ver").textContent = "v" + APP_VERSION;
-  $("upd").addEventListener("click", function(){ location.reload(); });
 
   function renderAll(){
     $("u-lb").setAttribute("aria-pressed", String(state.unit === "lb"));
@@ -1358,25 +1357,40 @@
 </script>
 <script>
   (function(){
-    if (!("serviceWorker" in navigator)) return;
-    var shown = false;
-    function showUpdate(){
-      if (shown) return; shown = true;
-      var b = document.getElementById("upd"); if (b) b.hidden = false;
+    var CURRENT = "26.09.17-4";
+    var btn = document.getElementById("upd");
+    var latest = null;
+
+    /* 서버의 version.json 을 캐시 없이 읽어 화면 버전과 비교 */
+    function check(){
+      fetch("./version.json?t=" + Date.now(), { cache:"no-store" })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(j){
+          if (j && j.version && j.version !== CURRENT){ latest = j.version; if (btn) btn.hidden = false; }
+        })
+        .catch(function(){});
     }
+
+    /* 누르면: 오프라인 캐시 비우기 → 서비스 워커 갱신 → 새 주소로 다시 열기 */
+    if (btn) btn.addEventListener("click", function(){
+      btn.textContent = "Updating…";
+      var clear = window.caches
+        ? caches.keys().then(function(ks){ return Promise.all(ks.map(function(k){ return caches.delete(k); })); })
+        : Promise.resolve();
+      var upd = ("serviceWorker" in navigator)
+        ? navigator.serviceWorker.getRegistration().then(function(r){ return r ? r.update() : null; })
+        : Promise.resolve();
+      Promise.all([clear.catch(function(){}), upd.catch(function(){})]).then(function(){
+        location.replace("./index.html?v=" + encodeURIComponent(latest || Date.now()));
+      });
+    });
+
     window.addEventListener("load", function(){
-      navigator.serviceWorker.register("./sw.js").then(function(reg){
-        if (reg.waiting && navigator.serviceWorker.controller) showUpdate();
-        reg.addEventListener("updatefound", function(){
-          var nw = reg.installing; if (!nw) return;
-          nw.addEventListener("statechange", function(){
-            if ((nw.state === "installed" || nw.state === "activated") && navigator.serviceWorker.controller) showUpdate();
-          });
-        });
-        document.addEventListener("visibilitychange", function(){
-          if (document.visibilityState === "visible") reg.update().catch(function(){});
-        });
-      }).catch(function(){});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(function(){});
+      check();
+    });
+    document.addEventListener("visibilitychange", function(){
+      if (document.visibilityState === "visible") check();
     });
   })();
 </script>
