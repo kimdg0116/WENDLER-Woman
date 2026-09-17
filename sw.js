@@ -1,12 +1,16 @@
 /* 웬들러 5·3·1 — 오프라인 캐시 */
-var CACHE = "w531-her-v1";
+var VERSION = "26.09.17-3";
+var CACHE = "w531-v" + VERSION;
 var CORE = ["./", "./index.html", "./manifest.webmanifest",
             "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", function(e){
   e.waitUntil(
     caches.open(CACHE)
-      .then(function(c){ return c.addAll(CORE); })
+      .then(function(c){
+        /* 브라우저 HTTP 캐시를 건너뛰고 서버에서 새로 받는다 */
+        return c.addAll(CORE.map(function(u){ return new Request(u, { cache:"reload" }); }));
+      })
       .catch(function(){})
       .then(function(){ return self.skipWaiting(); })
   );

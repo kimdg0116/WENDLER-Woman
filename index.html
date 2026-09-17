@@ -2,14 +2,14 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#EDEEF1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
 <meta name="description" content="Wendler 5/3/1 세트·원판 계산기">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Wendler W">
+<meta name="apple-mobile-web-app-title" content="Wendler">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="icon" href="./icon-192.png" type="image/png">
@@ -86,7 +86,8 @@
     line-height:1.5;
     -webkit-text-size-adjust:100%;
   }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;touch-action:pan-x pan-y}
+  html{touch-action:pan-x pan-y;-webkit-tap-highlight-color:transparent}
   button{font:inherit;color:inherit;cursor:pointer}
   input{font:inherit;color:inherit}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
@@ -175,7 +176,8 @@
   .sets{display:flex;flex-direction:column}
   .row{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line-soft)}
   .row:last-child{border-bottom:0}
-  .row .tag{font-family:Oswald,sans-serif;font-size:12px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .row .tag{font-family:Oswald,sans-serif;font-size:12px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;line-height:1.25}
+  .row .tag .tpct{display:block;font-size:11px;font-weight:500;color:var(--ink-3);opacity:.85}
   .row .wt{font-family:Oswald,sans-serif;font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
   .row .wt em{font-style:normal;font-size:12px;font-weight:500;color:var(--ink-3);margin-left:3px}
   .row .rp{font-family:Oswald,sans-serif;font-size:17px;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -232,10 +234,30 @@
   .sup-block .pct{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
   .sup-block .plates{grid-column:1 / -1}
   .sup-block .blab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;grid-column:1 / -1;margin-bottom:-2px}
-  .pctctl{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
-  .pctctl button{border:0;background:transparent;width:30px;height:30px;font-size:16px;line-height:1;display:grid;place-items:center;color:var(--ink-2);padding:0}
-  .pctctl button:active{background:var(--surface-2)}
-  .pctctl span{font-family:Oswald,sans-serif;font-size:12.5px;font-weight:600;min-width:40px;text-align:center;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .wt-in{
+    font:inherit;color:inherit;width:3.6ch;min-width:0;padding:0 2px;margin:0;
+    background:transparent;border:0;border-bottom:1.5px dashed var(--line);border-radius:0;
+    -moz-appearance:textfield;
+  }
+  .wt-in::-webkit-outer-spin-button,.wt-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .wt-in:focus{outline:none;border-bottom-color:var(--accent)}
+  .wstep{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none;align-self:start;margin-top:14px}
+  .wstep button{border:0;background:transparent;min-width:44px;height:34px;font-family:Oswald,sans-serif;font-size:14px;font-weight:600;color:var(--ink-2);padding:0 8px}
+  .wstep button+button{border-left:1px solid var(--line)}
+  .wstep button:active{background:var(--surface-2)}
+  .sup-meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:11.5px;color:var(--ink-3);margin-top:-2px}
+  .sup-meta .warn{color:var(--accent);font-weight:600}
+  .linkbtn{border:0;background:transparent;padding:0;font-size:11.5px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  .tmflag{
+    grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;
+    background:color-mix(in srgb, var(--accent) 10%, var(--surface));
+    border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink-2)
+  }
+  .tmflag span{flex:1 1 150px}
+  .fbtn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:600;color:var(--ink-2)}
+  .fbtn-main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .base-note{grid-column:1 / -1;font-size:11px;color:var(--ink-3);margin-top:-4px}
   .sup-act{grid-column:1 / -1;display:flex;justify-content:flex-end;margin-top:-2px}
   .sup-log{
     border:1px solid var(--accent);background:transparent;color:var(--accent);
@@ -264,7 +286,7 @@
   .bk textarea{
     width:100%;min-height:72px;resize:vertical;background:var(--surface-2);
     border:1px solid var(--line);border-radius:8px;padding:9px 10px;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.45;color:var(--ink-2);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;line-height:1.4;color:var(--ink-2);
   }
   .bk-row{display:flex;gap:7px;flex-wrap:wrap}
   .bk-row button{border:1px solid var(--line);background:transparent;border-radius:7px;padding:7px 12px;font-size:12px;font-weight:600;color:var(--ink-2)}
@@ -274,6 +296,15 @@
   .storage{font-size:11.5px;color:var(--ink-3);text-align:center;line-height:1.5}
   .foot{font-size:12px;color:var(--ink-3);line-height:1.6;border-top:1px solid var(--line-soft);padding-top:13px}
   .foot b{color:var(--ink-2);font-weight:600}
+  .ver.copy{margin-top:-12px}
+  .ver{margin:-6px 0 0;text-align:right;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.06em;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .upd{
+    position:fixed;left:50%;transform:translateX(-50%);z-index:50;
+    bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+    border:0;border-radius:999px;padding:11px 18px;
+    background:var(--ink);color:var(--ground);font-size:13px;font-weight:600;white-space:nowrap;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+  }
 </style>
 </head>
 <body>
@@ -368,10 +399,37 @@
     <b>+</b> 세트 개수가 지난 사이클보다 줄었다면 TM 이 높거나 보조 볼륨이 과한 것입니다.
   </p>
 
+  <p class="ver" id="ver"></p>
+  <p class="ver copy">© Dongkyu Kim</p>
+
 </div>
+
+<button type="button" id="upd" class="upd" hidden>Update available · Tap to reload</button>
+
 <script>
 (function(){
   "use strict";
+
+  var APP_VERSION = "26.09.17-3";
+
+  /* 확대 막기 — 두 손가락 핀치, 더블탭 */
+  (function(){
+    var stop = function(e){ e.preventDefault(); };
+    ["gesturestart","gesturechange","gestureend"].forEach(function(t){
+      document.addEventListener(t, stop, { passive:false });
+    });
+    document.addEventListener("touchmove", function(e){
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }, { passive:false });
+    var lastEnd = 0;
+    document.addEventListener("touchend", function(e){
+      var now = Date.now();
+      var onControl = e.target && e.target.closest && e.target.closest("button,input,textarea,select,label,a");
+      if (!onControl && now - lastEnd < 350) e.preventDefault();
+      lastEnd = now;
+    }, { passive:false });
+    document.addEventListener("dblclick", stop, { passive:false });
+  })();
 
   var LIFTS = [
     { id:"back-squat",     name:"Back Squat",     seedLb:225 },
@@ -425,7 +483,7 @@
     reps:{}, data:{}
   };
 
-  LIFTS.forEach(function(l){ state.data[l.id] = { oneRM:l.seedLb, history:[], seeded:true }; });
+  LIFTS.forEach(function(l){ state.data[l.id] = { oneRM:l.seedLb, history:[], seeded:true, sup:{} }; });
   ["lb","kg"].forEach(function(u){ GEAR[u].sizes.forEach(function(p){ state.owned[u][p] = true; }); });
 
   function prefGet(k, fb){ try { var v = localStorage.getItem("w531."+k); return v === null ? fb : v; } catch(e){ return fb; } }
@@ -738,10 +796,11 @@
           : "TM is 90% of your 1RM, rounded to the nearest " + fmt(GEAR[state.unit].step) + " " + state.unit + ".");
   }
 
-  function makeRow(cls, tag, weight, reps, step){
+  function makeRow(cls, tag, weight, reps, step, pct){
     var row = document.createElement("div");
     row.className = "row" + (cls ? " " + cls : "");
     var t = document.createElement("div"); t.className = "tag"; t.textContent = tag;
+    if (pct != null){ var tp = document.createElement("span"); tp.className = "tpct"; tp.textContent = pct + "%"; t.appendChild(tp); }
     var w = document.createElement("div"); w.className = "wt";
     w.appendChild(document.createTextNode(fmt(weight)));
     var em = document.createElement("em"); em.textContent = state.unit; w.appendChild(em);
@@ -764,7 +823,7 @@
       WARMUP.forEach(function(p, i){
         var wv = setWeight(p[0]);
         if (state.snapWarm) wv = snapChunky(wv);
-        plan.push({ cls:"warm", tag:"Warm " + (i+1), weight:wv, reps:p[1], amrap:false });
+        plan.push({ cls:"warm", tag:"Warm " + (i+1), weight:wv, reps:p[1], amrap:false, pct:p[0] });
       });
     }
     w.work.forEach(function(p, i){
@@ -773,10 +832,13 @@
     });
 
     var steps = buildLadder(plan.map(function(x){ return x.weight; }));
+    RAMP = plan.map(function(x, i){
+      return { tag:x.tag, weight:x.weight, cfg:steps[i].keep.concat(steps[i].add) };
+    });
     var mb = $("max-block"); mb.textContent = "";
     plan.forEach(function(x, i){
       if (x.amrap){ renderMax(mb, x, steps[i]); return; }
-      box.appendChild(makeRow(x.cls, x.tag, x.weight, x.reps, steps[i]));
+      box.appendChild(makeRow(x.cls, x.tag, x.weight, x.reps, steps[i], x.pct));
     });
   }
 
@@ -841,6 +903,42 @@
     mb.appendChild(wrap);
   }
 
+  var RAMP = [];
+  function tmLb(){ return cur().oneRM * 0.9; }
+
+  /* 보조 블록 원판: 같은 무게면 그 세트 구성 그대로, 다르면 가장 가까운 무게의 세트 구성을 고친다 */
+  function supPlates(weight, candidates, lastBlock){
+    var b = bar(), sizes = ownedSizes(false);
+    var sideQ = Math.max(0, q((weight - b) / 2));
+    var same = null;
+    candidates.forEach(function(c){ if (Math.abs(c.weight - weight) < 0.01) same = c; });
+    if (same){
+      return { base:same, exact:true, step:{ keep:same.cfg.slice(), add:[], rm:[], short:0, total:same.cfg.length } };
+    }
+    var best = null;
+    candidates.forEach(function(c){
+      var dist = Math.abs(c.weight - weight);
+      var cfg = bestConfig(sideQ, sizes, c.cfg, lastBlock);
+      var short = 0;
+      if (!cfg){ var r = solve(sideQ, sizes); cfg = r.plates; short = r.short; }
+      var hc = {}, keep = [], add = [], rm = [];
+      c.cfg.forEach(function(p){ hc[p] = (hc[p] || 0) + 1; });
+      cfg.forEach(function(p){ if (hc[p] > 0){ hc[p]--; keep.push(p); } else add.push(p); });
+      for (var p in hc) for (var i = 0; i < hc[p]; i++) rm.push(Number(p));
+      var moves = add.length + rm.length;
+      var cand = { base:c, dist:dist, moves:moves, step:{ keep:keep, add:add, rm:rm, short:short, total:cfg.length } };
+      if (!best ||
+          dist < best.dist - 0.01 ||
+          (Math.abs(dist - best.dist) < 0.01 && (moves < best.moves ||
+            (moves === best.moves && c.weight > best.base.weight)))) best = cand;
+    });
+    if (!best){
+      var r2 = solve(sideQ, sizes);
+      return { base:null, exact:false, step:{ keep:[], add:r2.plates, rm:[], short:r2.short, total:r2.plates.length } };
+    }
+    return { base:best.base, exact:false, step:best.step };
+  }
+
   function renderSup(){
     var pick = $("sup-pick"); pick.textContent = "";
     SUP_ORDER.forEach(function(k){
@@ -861,34 +959,126 @@
     var totalReps = 0;
     s.blocks.forEach(function(bk){ totalReps += bk.sets * bk.reps; });
 
-    s.blocks.forEach(function(bk){
-      var pct = bk.src === "first" ? WEEKS[state.week].work[0][0] : state.supPct[bk.key];
-      var weight = setWeight(pct);
+    var prevBlock = null;
+    s.blocks.forEach(function(bk, bi){
+      var d = cur();
+      var tmD = tmDisp();
+      var defPct = bk.src === "first" ? WEEKS[state.week].work[0][0] : state.supPct[bk.key];
+      var planWeight = setWeight(defPct);
+      var mem = bk.key ? d.sup[bk.key] : null;
+      var weight = mem ? Math.round(toDisp(mem.lb) * 10) / 10 : planWeight;
+      var realPct = tmD > 0 ? Math.round(weight / tmD * 100) : defPct;
+
       var blk = document.createElement("div"); blk.className = "sup-block";
 
-      if (bk.lab){
-        var bl = document.createElement("div"); bl.className = "blab"; bl.textContent = bk.lab;
-        blk.appendChild(bl);
-      }
+      var bl = document.createElement("div"); bl.className = "blab";
+      bl.textContent = bk.lab || s.label;
+      blk.appendChild(bl);
 
       var mid = document.createElement("div");
       var wt = document.createElement("div"); wt.className = "wt";
-      wt.appendChild(document.createTextNode(fmt(weight)));
+      if (bk.key){
+        var inp = document.createElement("input");
+        inp.type = "number"; inp.inputMode = "decimal"; inp.className = "wt-in";
+        inp.id = "sup-w-" + bk.key;
+        inp.step = GEAR[state.unit].step; inp.min = "0";
+        inp.value = fmt(weight);
+        inp.setAttribute("aria-label", (bk.lab || s.label) + " weight");
+        var commit = function(){
+          var v = parseFloat(inp.value);
+          if (!isFinite(v) || v <= 0){ inp.value = fmt(weight); return; }
+          if (Math.abs(v - weight) < 0.01) return;
+          d.sup[bk.key] = { lb:toLb(v), tm:tmLb() };
+          saveAll(); fillBackup(); renderSup();
+        };
+        inp.addEventListener("change", commit);
+        inp.addEventListener("keydown", function(e){ if (e.key === "Enter") inp.blur(); });
+        wt.appendChild(inp);
+      } else {
+        wt.appendChild(document.createTextNode(fmt(weight)));
+      }
       var em = document.createElement("em"); em.textContent = state.unit; wt.appendChild(em);
+
       var sc = document.createElement("div"); sc.className = "scheme";
       sc.innerHTML = "<b>" + bk.sets + "</b> sets <span>×</span> <b>" + bk.reps + "</b> reps";
       var pc = document.createElement("div"); pc.className = "pct";
-      pc.textContent = pct + "% TM" + (bk.src === "first" ? " · same as Set 1" : "") + " · " + (bk.sets * bk.reps) + " reps total";
+      pc.textContent = (bk.src === "first" ? defPct + "% TM · same as Set 1" : "≈ " + realPct + "% TM") +
+                       " · " + (bk.sets * bk.reps) + " reps total";
       mid.appendChild(wt); mid.appendChild(sc); mid.appendChild(pc);
       blk.appendChild(mid);
 
-      if (bk.key) blk.appendChild(pctControl(bk.key));
-      else blk.appendChild(document.createElement("div"));
+      if (bk.key){
+        var ctl = document.createElement("div"); ctl.className = "wstep";
+        var stepV = GEAR[state.unit].step;
+        [[-stepV, "−" + fmt(stepV)], [stepV, "+" + fmt(stepV)]].forEach(function(o){
+          var bt = document.createElement("button");
+          bt.type = "button"; bt.textContent = o[1];
+          bt.setAttribute("aria-label", (o[0] < 0 ? "Lower " : "Raise ") + fmt(stepV) + " " + state.unit);
+          bt.addEventListener("click", function(){
+            var v = Math.round((weight + o[0]) * 10) / 10;
+            if (v <= 0) return;
+            d.sup[bk.key] = { lb:toLb(v), tm:tmLb() };
+            saveAll(); fillBackup(); renderSup();
+          });
+          ctl.appendChild(bt);
+        });
+        blk.appendChild(ctl);
+      } else {
+        blk.appendChild(document.createElement("div"));
+      }
 
-      var r = solve(Math.max(0, q((weight - bar()) / 2)), ownedSizes(false));
+      /* 지난 기록 + 되돌리기 */
+      if (bk.key){
+        var meta = document.createElement("div"); meta.className = "sup-meta";
+        var last = null;
+        d.history.forEach(function(e){ if (e.k === "s" && e.bk === bk.key && (!last || (e.i || 0) >= (last.i || 0))) last = e; });
+        if (last){
+          var ls = document.createElement("span");
+          ls.textContent = "Last " + fmt(roundBar(toDisp(last.lb))) + " " + state.unit + " · " + last.d.slice(5).replace("-", "/");
+          meta.appendChild(ls);
+        }
+        if (mem && Math.abs(weight - planWeight) > 0.01){
+          var rs = document.createElement("button");
+          rs.type = "button"; rs.className = "linkbtn";
+          rs.textContent = "Reset to " + defPct + "% (" + fmt(planWeight) + ")";
+          rs.addEventListener("click", function(){ delete d.sup[bk.key]; saveAll(); fillBackup(); renderSup(); });
+          meta.appendChild(rs);
+        }
+        if (weight < bar() - 0.01){
+          var lw = document.createElement("span"); lw.className = "warn"; lw.textContent = "Lighter than the bar";
+          meta.appendChild(lw);
+        }
+        if (meta.children.length) blk.appendChild(meta);
+
+        /* 사이클이 바뀌어 TM 이 달라졌을 때 */
+        if (mem && typeof mem.tm === "number" && Math.abs(mem.tm - tmLb()) > 0.5){
+          var fl = document.createElement("div"); fl.className = "tmflag";
+          var ft = document.createElement("span");
+          ft.textContent = "TM changed · " + defPct + "% is now " + fmt(planWeight) + " " + state.unit;
+          var ap = document.createElement("button"); ap.type = "button"; ap.className = "fbtn fbtn-main";
+          ap.textContent = "Use " + fmt(planWeight);
+          ap.addEventListener("click", function(){ d.sup[bk.key] = { lb:toLb(planWeight), tm:tmLb() }; saveAll(); fillBackup(); renderSup(); });
+          var kp = document.createElement("button"); kp.type = "button"; kp.className = "fbtn";
+          kp.textContent = "Keep " + fmt(weight);
+          kp.addEventListener("click", function(){ d.sup[bk.key].tm = tmLb(); saveAll(); fillBackup(); renderSup(); });
+          fl.appendChild(ft); fl.appendChild(ap); fl.appendChild(kp);
+          blk.appendChild(fl);
+        }
+      }
+
+      /* 원판 */
+      var candidates = RAMP.slice();
+      if (prevBlock) candidates.push(prevBlock);
+      var sp = supPlates(weight, candidates, bi === s.blocks.length - 1);
       var pl = document.createElement("div"); pl.className = "plates";
-      pl.appendChild(plateStrip({ keep:[], add:r.plates, rm:[], short:r.short, total:r.plates.length }));
+      pl.appendChild(plateStrip(sp.step));
       blk.appendChild(pl);
+      if (sp.base){
+        var bn = document.createElement("div"); bn.className = "base-note";
+        bn.textContent = sp.exact ? "Same plates as " + sp.base.tag : "Based on " + sp.base.tag + " (" + fmt(sp.base.weight) + " " + state.unit + ")";
+        blk.appendChild(bn);
+      }
+      prevBlock = { tag:bk.lab || s.label, weight:weight, cfg:sp.step.keep.concat(sp.step.add) };
 
       var act = document.createElement("div"); act.className = "sup-act";
       var lg = document.createElement("button");
@@ -896,9 +1086,10 @@
       lg.textContent = "Log";
       lg.title = "Log " + bk.sets + " sets × " + bk.reps + " reps at " + fmt(weight) + " " + state.unit;
       lg.addEventListener("click", function(){
-        logSup(weight, bk, pct, s.label + (multi && bk.lab ? " " + bk.lab : ""));
-        lg.textContent = "Logged"; lg.classList.add("done");
-        setTimeout(function(){ lg.textContent = "Log"; lg.classList.remove("done"); }, 1400);
+        logSup(weight, bk, realPct, s.label + (bk.lab ? " · " + bk.lab : ""));
+        var again = document.querySelectorAll(".sup-log")[bi];
+        if (again){ again.textContent = "Logged"; again.classList.add("done");
+          setTimeout(function(){ again.textContent = "Log"; again.classList.remove("done"); }, 1400); }
       });
       act.appendChild(lg);
       blk.appendChild(act);
@@ -909,34 +1100,11 @@
     if (multi){
       var sum = document.createElement("div"); sum.className = "sup-block";
       var t = document.createElement("div"); t.className = "pct";
-      t.style.gridColumn = "1 / -1";
+      t.style.gridColumn = "1 / -1"; t.style.whiteSpace = "normal";
       t.textContent = "Total " + totalReps + " reps across both blocks — go lighter on WOD days.";
       sum.appendChild(t);
       body.appendChild(sum);
     }
-  }
-
-  function pctControl(key){
-    var wrap = document.createElement("div"); wrap.className = "pctctl";
-    function step(delta, label, aria){
-      var b = document.createElement("button");
-      b.type = "button"; b.textContent = label;
-      b.setAttribute("aria-label", aria);
-      b.addEventListener("click", function(){
-        var v = state.supPct[key] + delta;
-        if (v < 20 || v > 70) return;
-        state.supPct[key] = v;
-        prefSet("suppct." + key, String(v));
-        renderSup();
-      });
-      return b;
-    }
-    var val = document.createElement("span");
-    val.textContent = state.supPct[key] + "%";
-    wrap.appendChild(step(-5, "\u2212", "Lower 5%"));
-    wrap.appendChild(val);
-    wrap.appendChild(step(5, "+", "Raise 5%"));
-    return wrap;
   }
 
   function e1rm(weight, reps){ return (!reps || reps < 1) ? 0 : (reps === 1 ? weight : weight * (1 + reps / 30)); }
@@ -963,7 +1131,7 @@
       box.appendChild(p); $("best").textContent = ""; return;
     }
     var best = bestE1RM();
-    $("best").textContent = "Best e1RM " + fmt(roundBar(best)) + " " + state.unit;
+    $("best").textContent = best > 0 ? "Best e1RM " + fmt(roundBar(best)) + " " + state.unit : "";
     h.slice(0, 12).forEach(function(e){
       var isSup = e.k === "s";
       var est = isSup ? 0 : e1rm(toDisp(e.lb), e.reps);
@@ -1043,6 +1211,8 @@
     if (mq.addEventListener) mq.addEventListener("change", onChange); else if (mq.addListener) mq.addListener(onChange);
   }
   applyTheme();
+  $("ver").textContent = "v" + APP_VERSION;
+  $("upd").addEventListener("click", function(){ location.reload(); });
 
   function renderAll(){
     $("u-lb").setAttribute("aria-pressed", String(state.unit === "lb"));
@@ -1055,8 +1225,8 @@
     var out = { v:1, lifts:{} };
     LIFTS.forEach(function(l){
       var d = state.data[l.id];
-      if (d.seeded && !d.history.length) return;
-      out.lifts[l.id] = { oneRM:Math.round(d.oneRM * 100) / 100, history:d.history.slice(-200) };
+      if (d.seeded && !d.history.length && !Object.keys(d.sup || {}).length) return;
+      out.lifts[l.id] = { oneRM:Math.round(d.oneRM * 100) / 100, history:d.history.slice(-200), sup:d.sup || {} };
     });
     return out;
   }
@@ -1079,6 +1249,14 @@
           return e && typeof e.lb === "number" && typeof e.reps === "number" && typeof e.d === "string";
         }).slice(-HIST_CAP);
       }
+      if (b.sup && typeof b.sup === "object"){
+        d.sup = {};
+        Object.keys(b.sup).forEach(function(k){
+          var v = b.sup[k];
+          if (v && typeof v.lb === "number" && isFinite(v.lb) && v.lb > 0)
+            d.sup[k] = { lb:v.lb, tm:(typeof v.tm === "number" ? v.tm : null) };
+        });
+      }
     });
     return n > 0;
   }
@@ -1098,7 +1276,9 @@
     renderSets();
   }
   function logSup(weightDisp, block, pct, label){
-    pushHist({ lb:toLb(weightDisp), reps:block.reps, sets:block.sets, pct:pct, k:"s", lab:label });
+    if (block.key) cur().sup[block.key] = { lb:toLb(weightDisp), tm:tmLb() };
+    pushHist({ lb:toLb(weightDisp), reps:block.reps, sets:block.sets, pct:pct, k:"s", lab:label, bk:block.key || null });
+    renderSup();
   }
 
   function fillBackup(){ if (typeof bkMode !== "undefined" && bkMode === "show") $("bk-box").value = JSON.stringify(snapshot()); }
@@ -1177,11 +1357,28 @@
 })();
 </script>
 <script>
-  if ("serviceWorker" in navigator){
+  (function(){
+    if (!("serviceWorker" in navigator)) return;
+    var shown = false;
+    function showUpdate(){
+      if (shown) return; shown = true;
+      var b = document.getElementById("upd"); if (b) b.hidden = false;
+    }
     window.addEventListener("load", function(){
-      navigator.serviceWorker.register("./sw.js").catch(function(){});
+      navigator.serviceWorker.register("./sw.js").then(function(reg){
+        if (reg.waiting && navigator.serviceWorker.controller) showUpdate();
+        reg.addEventListener("updatefound", function(){
+          var nw = reg.installing; if (!nw) return;
+          nw.addEventListener("statechange", function(){
+            if ((nw.state === "installed" || nw.state === "activated") && navigator.serviceWorker.controller) showUpdate();
+          });
+        });
+        document.addEventListener("visibilitychange", function(){
+          if (document.visibilityState === "visible") reg.update().catch(function(){});
+        });
+      }).catch(function(){});
     });
-  }
+  })();
 </script>
 </body>
 </html>
