@@ -311,7 +311,9 @@
     font-family:Oswald,"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:19px;letter-spacing:.11em;line-height:1;
   }
   .tabs button[aria-pressed="true"]{color:var(--ink)}
-  .sub-tabs{display:flex;align-items:center;gap:7px;margin:0 0 11px}
+  #tab-max{display:flex;flex-direction:column;gap:14px}
+  #mv-list{display:flex;flex-direction:column;gap:14px}
+  .sub-tabs{display:flex;align-items:center;gap:7px;margin:0}
   .sub-tabs .st{
     border:1px solid var(--line);background:var(--surface);border-radius:999px;
     padding:7px 15px;font-size:13px;font-weight:500;color:var(--ink-2);
@@ -326,14 +328,14 @@
   .mv-row.ro .mv-n{flex:1}
   .mv-row{
     display:flex;width:100%;align-items:baseline;justify-content:space-between;gap:10px;
-    padding:10px 14px;border:0;border-top:1px solid var(--line-soft);background:transparent;color:inherit;text-align:left;
+    padding:13px 14px;border:0;background:transparent;color:inherit;text-align:left;border-radius:var(--radius);
   }
   .mv-row .mv-n{font-size:14px;font-weight:500}
   .mv-row .mv-v{font-family:Oswald,sans-serif;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
   .mv-row .mv-v em{font-style:normal;font-size:11px;font-weight:500;color:var(--ink-3);margin-left:3px}
   .mv-row .mv-v.none{font-size:12px;font-weight:500;color:var(--ink-3)}
-  .mv-row[aria-expanded="true"]{background:var(--surface-2)}
-  .mv-d{border-top:1px solid var(--line-soft);background:var(--surface-2);padding:10px 0 2px}
+  .mv-row[aria-expanded="true"]{background:var(--surface-2);border-radius:var(--radius) var(--radius) 0 0}
+  .mv-d{border-top:1px solid var(--line-soft);background:var(--surface-2);padding:12px 0 4px;border-radius:0 0 var(--radius) var(--radius)}
   .mv-in{display:flex;align-items:center;gap:10px;padding:0 14px 8px}
   .mv-in label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
   .mv-in input{
@@ -358,14 +360,14 @@
   .mv-add .mv-sort:disabled{opacity:.3}
   .mv-add button{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600}
   .mv-hint{padding:0 14px 12px;font-size:12px;color:var(--ink-3);line-height:1.45}
-  .mv-form{display:flex;align-items:center;gap:6px;padding:9px 14px;border-top:1px solid var(--line-soft)}
+  .mv-form{display:flex;align-items:center;gap:6px;padding:9px 14px}
   .mv-form input{
     flex:1;min-width:0;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;
     padding:8px 10px;font-size:14px;color:inherit;
   }
   .mv-form button{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:8px;padding:8px 11px;font-size:12px;font-weight:600;flex:none}
   .mv-form .mv-ok{background:var(--ink);border-color:var(--ink);color:var(--ground)}
-  .mv-new{display:block;width:100%;border:0;border-top:1px solid var(--line-soft);background:transparent;color:var(--ink-3);text-align:left;padding:11px 14px;font-size:13px}
+  .mv-new{display:block;width:100%;border:0;background:transparent;color:var(--ink-3);text-align:left;padding:13px 14px;font-size:13px;border-radius:var(--radius)}
   .sl-p{
     width:52px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 2px;
     font-family:Oswald,sans-serif;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;text-align:center;color:inherit;
@@ -465,9 +467,7 @@
 
   <div id="tab-max" hidden>
     <div class="sub-tabs" id="mv-tabs" role="group" aria-label="Group"></div>
-    <section class="card">
-      <div id="mv-list"></div>
-    </section>
+    <div id="mv-list"></div>
   </div>
 
   <section class="card">
@@ -506,7 +506,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.20-2";
+  var APP_VERSION = "26.09.20-3";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -1391,16 +1391,25 @@
     return t.toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-+|-+$/g, "") || "move";
   }
 
+  function card(){
+    var c = document.createElement("section"); c.className = "card";
+    return c;
+  }
   function renderMoves(){
     renderMvTabs();
     var box = $("mv-list"); box.textContent = "";
     MOVES.forEach(function(m){
       if (m.group !== state.mvGroup) return;
-      box.appendChild(moveRow(m));
-      if (!state.reorder && state.openMove === m.id) box.appendChild(moveDetail(m));
+      var c = card();
+      c.appendChild(moveRow(m));
+      if (!state.reorder && state.openMove === m.id) c.appendChild(moveDetail(m));
+      box.appendChild(c);
     });
-    if (!state.reorder)
-      box.appendChild(state.adding === state.mvGroup ? addForm(state.mvGroup) : addButton(state.mvGroup));
+    if (!state.reorder){
+      var c2 = card();
+      c2.appendChild(state.adding === state.mvGroup ? addForm(state.mvGroup) : addButton(state.mvGroup));
+      box.appendChild(c2);
+    }
   }
 
   function clearModes(){
@@ -1870,7 +1879,7 @@
 </script>
 <script>
   (function(){
-    var CURRENT = "26.09.20-2";
+    var CURRENT = "26.09.20-3";
     var btn = document.getElementById("upd");
     var latest = null;
 

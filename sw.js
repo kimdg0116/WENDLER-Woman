@@ -1,5 +1,5 @@
 /* 웬들러 5·3·1 — 오프라인 캐시 */
-var VERSION = "26.09.20-2";
+var VERSION = "26.09.20-3";
 var CACHE = "w531-v" + VERSION;
 var CORE = ["./", "./index.html", "./manifest.webmanifest",
             "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png"];
