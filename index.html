@@ -171,6 +171,9 @@
     color:var(--ink-3);font-variant-numeric:tabular-nums;
   }
   .pchip[aria-pressed="true"]{border-color:transparent}
+  #bars{display:flex;gap:5px;flex:none}
+  #owned{display:flex;gap:4px;flex:1 1 auto;min-width:0}
+  #owned .pchip{flex:1 1 0;width:auto;min-width:0;padding-left:0;padding-right:0}
 
   /* ---- 세트 행 ---- */
   .sets{display:flex;flex-direction:column}
@@ -439,8 +442,8 @@
       <span class="sub" id="sets-sub"></span>
     </div>
     <div class="opts">
-      <div class="opt-row"><span class="opt-l">Bar</span><span id="bars" style="display:flex;gap:5px"></span></div>
-      <div class="opt-row"><span class="opt-l">Plates</span><span id="owned" style="display:flex;gap:5px;flex-wrap:wrap"></span></div>
+      <div class="opt-row"><span class="opt-l">Bar</span><span id="bars"></span></div>
+      <div class="opt-row"><span class="opt-l">Plates</span><span id="owned"></span></div>
       <div class="opt-row">
         <span class="opt-l">Mode</span>
         <button type="button" id="ladder" class="chip-btn"></button>
@@ -508,7 +511,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.20-4";
+  var APP_VERSION = "26.09.20-5";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -1872,7 +1875,7 @@
 </script>
 <script>
   (function(){
-    var CURRENT = "26.09.20-4";
+    var CURRENT = "26.09.20-5";
     var btn = document.getElementById("upd");
     var latest = null;
 
