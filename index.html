@@ -305,13 +305,98 @@
     background:var(--ink);color:var(--ground);font-size:13px;font-weight:600;white-space:nowrap;
     box-shadow:0 6px 20px rgba(0,0,0,.25);
   }
+  .tabs{display:flex;align-items:baseline;gap:13px;min-width:0}
+  .tabs button{
+    border:0;background:transparent;padding:0;color:var(--ink-3);
+    font-family:Oswald,"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:19px;letter-spacing:.11em;line-height:1;
+  }
+  .tabs button[aria-pressed="true"]{color:var(--ink)}
+  .sub-tabs{display:flex;align-items:center;gap:7px;margin:0 0 11px}
+  .sub-tabs .st{
+    border:1px solid var(--line);background:var(--surface);border-radius:999px;
+    padding:7px 15px;font-size:13px;font-weight:500;color:var(--ink-2);
+  }
+  .sub-tabs .st[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground);font-weight:600}
+  .sub-tabs .st-r{
+    margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:999px;
+    padding:7px 13px;font-size:12px;font-weight:600;color:var(--ink-3);
+  }
+  .sub-tabs .st-r[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+  .mv-row.ro{background:var(--surface-2)}
+  .mv-row.ro .mv-n{flex:1}
+  .mv-row{
+    display:flex;width:100%;align-items:baseline;justify-content:space-between;gap:10px;
+    padding:10px 14px;border:0;border-top:1px solid var(--line-soft);background:transparent;color:inherit;text-align:left;
+  }
+  .mv-row .mv-n{font-size:14px;font-weight:500}
+  .mv-row .mv-v{font-family:Oswald,sans-serif;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+  .mv-row .mv-v em{font-style:normal;font-size:11px;font-weight:500;color:var(--ink-3);margin-left:3px}
+  .mv-row .mv-v.none{font-size:12px;font-weight:500;color:var(--ink-3)}
+  .mv-row[aria-expanded="true"]{background:var(--surface-2)}
+  .mv-d{border-top:1px solid var(--line-soft);background:var(--surface-2);padding:10px 0 2px}
+  .mv-in{display:flex;align-items:center;gap:10px;padding:0 14px 8px}
+  .mv-in label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .mv-in input{
+    width:118px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+    font-family:Oswald,sans-serif;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;
+  }
+  .mv-in .mv-u{font-size:12px;color:var(--ink-3);margin-left:-4px}
+  .mv-ord{display:flex;gap:5px;margin-left:auto;flex:none}
+  .mv-ord button{
+    border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:8px;
+    width:32px;height:30px;font-size:13px;line-height:1;padding:0;
+  }
+  .mv-ord button:disabled{opacity:.3}
+  .mv-x.armed{border-color:var(--accent);color:var(--accent)}
+  .mv-x{margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--ink-3);border-radius:8px;padding:6px 10px;font-size:12px}
+  .mv-add{display:flex;align-items:center;gap:8px;padding:8px 14px 12px}
+  .mv-add input{
+    width:74px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;
+    font-family:Oswald,sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;
+  }
+  .mv-add .mv-sort{padding:7px 10px;font-family:Oswald,sans-serif;letter-spacing:.02em}
+  .mv-add .mv-sort:disabled{opacity:.3}
+  .mv-add button{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600}
+  .mv-hint{padding:0 14px 12px;font-size:12px;color:var(--ink-3);line-height:1.45}
+  .mv-form{display:flex;align-items:center;gap:6px;padding:9px 14px;border-top:1px solid var(--line-soft)}
+  .mv-form input{
+    flex:1;min-width:0;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;
+    padding:8px 10px;font-size:14px;color:inherit;
+  }
+  .mv-form button{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:8px;padding:8px 11px;font-size:12px;font-weight:600;flex:none}
+  .mv-form .mv-ok{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+  .mv-new{display:block;width:100%;border:0;border-top:1px solid var(--line-soft);background:transparent;color:var(--ink-3);text-align:left;padding:11px 14px;font-size:13px}
+  .sl-p{
+    width:52px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 2px;
+    font-family:Oswald,sans-serif;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;text-align:center;color:inherit;
+  }
+  .sl-w{
+    width:72px;background:transparent;border:0;border-bottom:1px solid transparent;border-radius:0;padding:0;
+    font-family:Oswald,sans-serif;font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;
+    line-height:1.1;color:inherit;-webkit-appearance:none;appearance:none;
+  }
+  .sl-w::-webkit-outer-spin-button,.sl-w::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .sl-w:focus{outline:none;border-bottom-color:var(--accent)}
+  .sl-r{display:flex;align-items:center;gap:2px}
+  .sl-up{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:7px;font-size:13px;line-height:1;padding:4px 7px}
+  .sl-l{
+    width:80px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;
+    padding:3px 2px;font-size:12px;color:var(--ink-2);text-align:right;
+  }
+  .sl-l:focus{outline:none;border-bottom-color:var(--accent)}
+  .sl-l::placeholder{color:var(--ink-3);opacity:.5}
+  .sl-x{border:0;background:transparent;color:var(--ink-3);font-size:17px;line-height:1;padding:4px 6px}
+  .sl-lab{font-family:Oswald,sans-serif;font-size:11px;font-weight:500;color:var(--ink-3);white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <div class="top">
-    <div class="brand">WENDLER</div>
+    <div class="tabs" role="group" aria-label="Tab">
+      <button type="button" id="t-w531" aria-pressed="true">WENDLER</button>
+      <button type="button" id="t-max" aria-pressed="false">1RM</button>
+    </div>
     <div class="top-r">
       <button type="button" id="theme" class="icon-btn" aria-label="Theme"></button>
       <div class="unit-sw" role="group" aria-label="Units">
@@ -320,6 +405,8 @@
       </div>
     </div>
   </div>
+
+  <div id="tab-w531">
 
   <div class="lifts" id="lifts" role="group" aria-label="Lift"></div>
 
@@ -374,6 +461,15 @@
     <div id="hist"></div>
   </section>
 
+  </div><!-- /tab-w531 -->
+
+  <div id="tab-max" hidden>
+    <div class="sub-tabs" id="mv-tabs" role="group" aria-label="Group"></div>
+    <section class="card">
+      <div id="mv-list"></div>
+    </section>
+  </div>
+
   <section class="card">
     <div class="card-h"><h2>Backup</h2><span class="sub">This device only</span></div>
     <div class="bk">
@@ -393,7 +489,7 @@
 
   <p class="storage" id="storage"></p>
 
-  <p class="foot">
+  <p class="foot" id="foot">
     <b>TM = 1RM × 90%.</b> 일부러 낮춰 잡아야 마지막 <b>+</b> 세트에서 개수가 나옵니다.
     한 사이클(4주)이 끝나면 상체 +5 lb, 하체 +10 lb 올리세요.
     <b>+</b> 세트 개수가 지난 사이클보다 줄었다면 TM 이 높거나 보조 볼륨이 과한 것입니다.
@@ -410,7 +506,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.20-1";
+  var APP_VERSION = "26.09.20-2";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -431,13 +527,27 @@
     document.addEventListener("dblclick", stop, { passive:false });
   })();
 
-  var LIFTS = [
-    { id:"back-squat",     name:"Back Squat",     seedLb:225 },
-    { id:"front-squat",    name:"Front Squat",    seedLb:185 },
-    { id:"shoulder-press", name:"Shoulder Press", seedLb:125 },
-    { id:"bench-press",    name:"Bench Press",    seedLb:150 },
-    { id:"deadlift",       name:"Deadlift",       seedLb:265 }
+  var GROUPS = [
+    { id:"oly", name:"Olympic" },
+    { id:"str", name:"Strength" }
   ];
+  var DEF_SLOTS = [];   /* 새 동작은 슬롯 없이 시작한다 */
+
+  /* 1RM 을 실제로 재는 동작만 목록에 둔다.
+     pull·hang·push press 같은 파생동작은 모동작의 % 슬롯으로 처리한다 (100% 초과 허용). */
+  var MOVES = [
+    { id:"clean",          name:"Clean",          group:"oly" },
+    { id:"clean-jerk",     name:"Clean & Jerk",   group:"oly" },
+    { id:"snatch",         name:"Snatch",         group:"oly" },
+    { id:"back-squat",     name:"Back Squat",     group:"str", w531:true },
+    { id:"front-squat",    name:"Front Squat",    group:"str", w531:true },
+    { id:"shoulder-press", name:"Shoulder Press", group:"str", w531:true },
+    { id:"bench-press",    name:"Bench Press",    group:"str", w531:true },
+    { id:"deadlift",       name:"Deadlift",       group:"str", w531:true }
+  ];
+  var LIFTS = MOVES.filter(function(m){ return m.w531; });
+  function syncLifts(){ LIFTS = MOVES.filter(function(m){ return m.w531; }); }
+  function moveById(id){ for (var i=0;i<MOVES.length;i++) if (MOVES[i].id===id) return MOVES[i]; return null; }
 
   var WARMUP = [[40,"5"],[50,"5"],[60,"3"]];
   var WEEKS = {
@@ -478,12 +588,31 @@
   var LB_PER_KG = 2.2046226;
   var state = {
     unit:"lb", lift:LIFTS[0].id, week:"w5", sup:"bbb8",
+    tab:"w531", mvGroup:"oly", reorder:false, openMove:"", adding:"", delArm:"",
     tmDirect:false, ladder:true, snapWarm:true,
     bar:{ lb:45, kg:20 }, owned:{ lb:{}, kg:{} }, supPct:{ d1:50, d2:40 },
     reps:{}, data:{}
   };
 
-  LIFTS.forEach(function(l){ state.data[l.id] = { oneRM:l.seedLb, history:[], seeded:true, sup:{} }; });
+  function normSlots(arr){
+    var out = [];
+    (arr || []).forEach(function(x){
+      var p = parseFloat((x && typeof x === "object") ? x.p : x);
+      if (!isFinite(p) || p <= 0 || p > 300) return;
+      var l = (x && typeof x === "object" && typeof x.l === "string") ? x.l.slice(0, 18) : "";
+      out.push({ p:Math.round(p * 10) / 10, l:l });
+    });
+    /* 이름(변형) 붙은 줄은 아래로 내린다. 각 묶음 안에서는 넣은 순서 그대로. */
+    var plain = [], named = [];
+    out.forEach(function(x){ (x.l ? named : plain).push(x); });
+    return plain.concat(named);
+  }
+  function defSlots(){ return normSlots(DEF_SLOTS); }
+  function slotKey(arr){ return arr.map(function(x){ return x.p + "|" + x.l; }).join(","); }
+  function seedMove(m){
+    state.data[m.id] = { oneRM:m.seedLb || 0, history:[], seeded:true, sup:{}, slots:defSlots() };
+  }
+  MOVES.forEach(seedMove);
   ["lb","kg"].forEach(function(u){ GEAR[u].sizes.forEach(function(p){ state.owned[u][p] = true; }); });
 
   function prefGet(k, fb){ try { var v = localStorage.getItem("w531."+k); return v === null ? fb : v; } catch(e){ return fb; } }
@@ -497,6 +626,12 @@
     var v = parseInt(prefGet("suppct."+k, ""), 10);
     if (isFinite(v) && v >= 20 && v <= 70) state.supPct[k] = v;
   });
+  state.tab      = prefGet("tab","w531") === "max" ? "max" : "w531";
+  state.mvGroup  = prefGet("mvgroup","oly") === "str" ? "str" : "oly";
+  state.openMove = (function(){
+    var m = moveById(prefGet("openmove",""));
+    return (m && m.group === state.mvGroup) ? m.id : "";
+  })();
   state.tmDirect = prefGet("tmdirect","0") === "1";
   state.ladder   = prefGet("ladder","1") === "1";
   state.snapWarm = prefGet("snapwarm","1") === "1";
@@ -779,7 +914,8 @@
 
   function renderTM(){
     var inp = $("orm");
-    if (document.activeElement !== inp) inp.value = fmt(state.tmDirect ? tmDisp() : roundBar(toDisp(cur().oneRM)));
+    if (document.activeElement !== inp)
+      inp.value = cur().oneRM > 0 ? fmt(state.tmDirect ? tmDisp() : roundBar(toDisp(cur().oneRM))) : "";
     inp.step = GEAR[state.unit].step;
     $("orm-lab").textContent = state.tmDirect ? "TM" : "1RM";
     $("tm-direct").checked = state.tmDirect;
@@ -789,8 +925,8 @@
     var out = $("tm-val"); out.textContent = "";
     out.appendChild(document.createTextNode(fmt(tmDisp())));
     var em = document.createElement("em"); em.textContent = state.unit; out.appendChild(em);
-    $("tm-note").textContent = cur().seeded
-      ? "Sample value for " + curLift().name + ". Enter your real 1RM."
+    $("tm-note").textContent = !(cur().oneRM > 0)
+      ? "Enter your 1RM for " + curLift().name + " to start."
       : (state.tmDirect
           ? "Entering TM directly. Your 1RM is saved as TM ÷ 0.9."
           : "TM is 90% of your 1RM, rounded to the nearest " + fmt(GEAR[state.unit].step) + " " + state.unit + ".");
@@ -812,11 +948,22 @@
     return row;
   }
 
+  function emptyNote(text){
+    var p = document.createElement("p"); p.className = "mv-hint"; p.textContent = text;
+    return p;
+  }
+
   function renderSets(){
     var w = WEEKS[state.week], deload = state.week === "wdl";
     var box = $("sets"); box.textContent = "";
     $("sets-h").textContent = deload ? "Deload Sets" : "Warm-up + Work Sets";
     $("sets-sub").textContent = deload ? "No AMRAP · easy" : w.sub;
+    if (!(cur().oneRM > 0)){
+      RAMP = [];
+      $("max-block").textContent = "";
+      box.appendChild(emptyNote("Enter a 1RM above to get your sets."));
+      return;
+    }
 
     var plan = [];
     if (!deload){
@@ -940,6 +1087,12 @@
   }
 
   function renderSup(){
+    if (!(cur().oneRM > 0)){
+      $("sup-body").textContent = ""; $("sup-desc").textContent = "";
+      $("sup-pick").textContent = "";
+      $("sup-body").appendChild(emptyNote("Enter a 1RM above to get your supplemental work."));
+      return;
+    }
     var pick = $("sup-pick"); pick.textContent = "";
     SUP_ORDER.forEach(function(k){
       var b = document.createElement("button");
@@ -1213,19 +1366,353 @@
   applyTheme();
   $("ver").textContent = "v" + APP_VERSION;
 
+  /* ---------- MAX 탭 : 1RM + 퍼센트 슬롯 ---------- */
+  function moveSlots(id){
+    var d = state.data[id];
+    if (!d.slots || !d.slots.length) d.slots = defSlots();
+    return d.slots;
+  }
+  function slotWeight(id, pct){ return roundBar(toDisp(state.data[id].oneRM) * pct / 100); }
+  function sortSlots(id, dir){
+    var arr = moveSlots(id).slice();
+    arr.sort(function(a, b){ return dir < 0 ? a.p - b.p : b.p - a.p; });
+    setSlots(id, arr); renderMoves();
+  }
+  function setSlots(id, arr){
+    state.data[id].slots = normSlots(arr);
+    saveAll();
+  }
+  /* 지금 오름차순인가 — 버튼이 "다음에 어느 쪽으로 정렬할지" 를 보여주기 위해 */
+  function slotsAsc(sl){
+    for (var i = 1; i < sl.length; i++) if (sl[i].p < sl[i-1].p) return false;
+    return true;
+  }
+  function slug(t){
+    return t.toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-+|-+$/g, "") || "move";
+  }
+
+  function renderMoves(){
+    renderMvTabs();
+    var box = $("mv-list"); box.textContent = "";
+    MOVES.forEach(function(m){
+      if (m.group !== state.mvGroup) return;
+      box.appendChild(moveRow(m));
+      if (!state.reorder && state.openMove === m.id) box.appendChild(moveDetail(m));
+    });
+    if (!state.reorder)
+      box.appendChild(state.adding === state.mvGroup ? addForm(state.mvGroup) : addButton(state.mvGroup));
+  }
+
+  function clearModes(){
+    state.openMove = ""; prefSet("openmove", "");
+    state.adding = ""; state.delArm = "";
+  }
+
+  function renderMvTabs(){
+    var box = $("mv-tabs"); box.textContent = "";
+    GROUPS.forEach(function(g){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "st";
+      b.setAttribute("aria-pressed", String(state.mvGroup === g.id));
+      b.textContent = g.name;
+      b.addEventListener("click", function(){
+        if (state.mvGroup === g.id) return;
+        state.mvGroup = g.id; prefSet("mvgroup", g.id);
+        clearModes(); renderMoves();
+      });
+      box.appendChild(b);
+    });
+    var r = document.createElement("button");
+    r.type = "button"; r.className = "st-r";
+    r.setAttribute("aria-pressed", String(state.reorder));
+    r.textContent = state.reorder ? "Done" : "Reorder";
+    r.addEventListener("click", function(){
+      state.reorder = !state.reorder;
+      clearModes(); renderMoves();
+    });
+    box.appendChild(r);
+  }
+
+  function ordButtons(m){
+    var ord = document.createElement("span"); ord.className = "mv-ord";
+    [["↑", -1], ["↓", 1]].forEach(function(o){
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = o[0];
+      b.setAttribute("aria-label", o[1] < 0 ? "Move up" : "Move down");
+      b.disabled = neighbour(m, o[1]) < 0;
+      b.addEventListener("click", function(){ orderMove(m, o[1]); });
+      ord.appendChild(b);
+    });
+    return ord;
+  }
+
+  function moveRow(m){
+    var d = state.data[m.id], open = state.openMove === m.id;
+    if (state.reorder){
+      var ro = document.createElement("div"); ro.className = "mv-row ro";
+      var rn = document.createElement("span"); rn.className = "mv-n"; rn.textContent = m.name;
+      ro.appendChild(rn); ro.appendChild(ordButtons(m));
+      return ro;
+    }
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "mv-row";
+    b.setAttribute("aria-expanded", String(open));
+    var n = document.createElement("span"); n.className = "mv-n"; n.textContent = m.name;
+    var v = document.createElement("span");
+    if (d.oneRM > 0){
+      v.className = "mv-v";
+      v.appendChild(document.createTextNode(fmt(roundBar(toDisp(d.oneRM)))));
+      var em = document.createElement("em"); em.textContent = state.unit; v.appendChild(em);
+    } else {
+      v.className = "mv-v none"; v.textContent = "No max";
+    }
+    b.appendChild(n); b.appendChild(v);
+    b.addEventListener("click", function(){
+      state.delArm = "";
+      state.openMove = open ? "" : m.id;
+      prefSet("openmove", state.openMove);
+      renderMoves();
+    });
+    return b;
+  }
+
+  function moveDetail(m){
+    var d = state.data[m.id];
+    var wrap = document.createElement("div"); wrap.className = "mv-d";
+
+    var inRow = document.createElement("div"); inRow.className = "mv-in";
+    var lab = document.createElement("label"); lab.setAttribute("for", "mv-orm"); lab.textContent = "1RM";
+    var inp = document.createElement("input");
+    inp.type = "number"; inp.id = "mv-orm"; inp.setAttribute("inputmode", "decimal");
+    inp.step = String(GEAR[state.unit].step); inp.min = "0";
+    inp.value = d.oneRM > 0 ? fmt(roundBar(toDisp(d.oneRM))) : "";
+    inp.addEventListener("change", function(){
+      var v = parseFloat(inp.value);
+      d.oneRM = (isFinite(v) && v > 0) ? toLb(v) : 0;
+      d.seeded = false;
+      saveAll(); renderAll();
+    });
+    var u = document.createElement("span"); u.className = "mv-u"; u.textContent = state.unit;
+    inRow.appendChild(lab); inRow.appendChild(inp); inRow.appendChild(u);
+    if (m.custom){
+      var del = document.createElement("button");
+      del.type = "button"; del.className = "mv-x" + (state.delArm === m.id ? " armed" : "");
+      del.textContent = state.delArm === m.id ? "Delete?" : "Delete";
+      del.addEventListener("click", function(){ removeMove(m); });
+      inRow.appendChild(del);
+    }
+    wrap.appendChild(inRow);
+
+    var slots = moveSlots(m.id);
+    if (d.oneRM > 0 && slots.length){
+      var steps = buildLadder(slots.map(function(sl){ return slotWeight(m.id, sl.p); }));
+      slots.forEach(function(sl, i){ wrap.appendChild(slotRow(m, sl, i, steps[i])); });
+    } else if (!(d.oneRM > 0)){
+      var hint = document.createElement("p"); hint.className = "mv-hint";
+      hint.textContent = "Enter a 1RM to get weights and plates for each slot.";
+      wrap.appendChild(hint);
+    }
+
+    var add = document.createElement("div"); add.className = "mv-add";
+    var pin = document.createElement("input");
+    pin.type = "number"; pin.setAttribute("inputmode", "numeric");
+    pin.min = "1"; pin.max = "300"; pin.step = "1"; pin.placeholder = "%";
+    pin.setAttribute("aria-label", "percent");
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.textContent = "＋ Slot";
+    btn.addEventListener("click", function(){
+      var v = parseFloat(pin.value);
+      if (!isFinite(v) || v <= 0 || v > 300){ pin.focus(); return; }
+      setSlots(m.id, moveSlots(m.id).concat([{ p:v, l:"" }]));
+      renderMoves();
+    });
+    var srt = document.createElement("button");
+    srt.type = "button"; srt.className = "mv-sort";
+    srt.textContent = slotsAsc(slots) ? "↓↑" : "↑↓";
+    srt.setAttribute("aria-label", slotsAsc(slots) ? "Sort high to low" : "Sort low to high");
+    srt.disabled = slots.length < 2;
+    srt.addEventListener("click", function(){ sortSlots(m.id, slotsAsc(slots) ? 1 : -1); });
+    var note = document.createElement("span"); note.className = "sl-lab";
+    note.textContent = "over 100% is fine";
+    add.appendChild(pin); add.appendChild(btn); add.appendChild(srt); add.appendChild(note);
+    wrap.appendChild(add);
+    return wrap;
+  }
+
+  function slotRow(m, slot, idx, step){
+    var row = document.createElement("div"); row.className = "row";
+    var t = document.createElement("div"); t.className = "tag";
+    var pi = document.createElement("input");
+    pi.type = "number"; pi.className = "sl-p"; pi.setAttribute("inputmode", "numeric");
+    pi.min = "1"; pi.max = "300"; pi.step = "0.1"; pi.value = String(slot.p);
+    pi.setAttribute("aria-label", m.name + " percent");
+    pi.addEventListener("change", function(){
+      var v = parseFloat(pi.value), arr = moveSlots(m.id).slice();
+      if (isFinite(v) && v > 0 && v <= 300) arr[idx] = { p:v, l:slot.l };
+      setSlots(m.id, arr); renderMoves();
+    });
+    t.appendChild(pi);
+    var w = document.createElement("div"); w.className = "wt";
+    var wi = document.createElement("input");
+    wi.type = "number"; wi.className = "sl-w"; wi.setAttribute("inputmode", "decimal");
+    wi.min = "0"; wi.step = String(GEAR[state.unit].step);
+    wi.value = fmt(slotWeight(m.id, slot.p));
+    wi.setAttribute("aria-label", m.name + " weight");
+    wi.addEventListener("change", function(){
+      var v = parseFloat(wi.value), rm = toDisp(state.data[m.id].oneRM), arr = moveSlots(m.id).slice();
+      if (isFinite(v) && v > 0 && rm > 0){
+        var pct = Math.min(Math.round((v / rm) * 1000) / 10, 300);
+        /* 0.5 단위로 다듬되, 실제 무게가 안 바뀔 때만 */
+        var tidy = Math.round(pct * 2) / 2;
+        if (tidy > 0 && roundBar(rm * tidy / 100) === roundBar(rm * pct / 100)) pct = tidy;
+        arr[idx] = { p:pct, l:slot.l };
+        setSlots(m.id, arr);
+      }
+      renderMoves();
+    });
+    var em = document.createElement("em"); em.textContent = state.unit;
+    w.appendChild(wi); w.appendChild(em);
+    var right = document.createElement("div"); right.className = "sl-r";
+    var li = document.createElement("input");
+    li.type = "text"; li.className = "sl-l"; li.value = slot.l;
+    li.placeholder = "variation"; li.maxLength = 18;
+    li.setAttribute("aria-label", m.name + " slot name");
+    li.addEventListener("change", function(){
+      var arr = moveSlots(m.id).slice();
+      arr[idx] = { p:slot.p, l:li.value.replace(/\s+/g, " ").trim() };
+      setSlots(m.id, arr); renderMoves();
+    });
+    right.appendChild(li);
+    if (slot.l){
+      var up = document.createElement("button");
+      up.type = "button"; up.className = "sl-up"; up.textContent = "↗";
+      up.setAttribute("aria-label", "Make " + slot.l + " its own lift");
+      up.addEventListener("click", function(){ promoteSlot(m, slot, idx); });
+      right.appendChild(up);
+    }
+    var x = document.createElement("button");
+    x.type = "button"; x.className = "sl-x"; x.textContent = "✕";
+    x.setAttribute("aria-label", "Delete slot");
+    x.addEventListener("click", function(){
+      var arr = moveSlots(m.id).slice(); arr.splice(idx, 1);
+      setSlots(m.id, arr); renderMoves();
+    });
+    right.appendChild(x);
+    row.appendChild(t); row.appendChild(w); row.appendChild(right);
+    var pl = document.createElement("div"); pl.className = "plates";
+    pl.appendChild(plateStrip(step));
+    row.appendChild(pl);
+    return row;
+  }
+
+  /* 같은 그룹의 이웃 index. 없으면 -1 (index 0 이 유효값이라 0 을 "없음"으로 쓰면 안 된다) */
+  function neighbour(m, dir){
+    for (var i = MOVES.indexOf(m) + dir; i >= 0 && i < MOVES.length; i += dir)
+      if (MOVES[i].group === m.group) return i;
+    return -1;
+  }
+  function orderMove(m, dir){
+    var i = MOVES.indexOf(m), j = neighbour(m, dir);
+    if (i < 0 || j < 0) return;
+    MOVES[i] = MOVES[j]; MOVES[j] = m;
+    syncLifts(); saveAll(); renderAll();
+  }
+
+  function addButton(group){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "mv-new"; b.textContent = "＋ Add lift";
+    b.addEventListener("click", function(){ state.adding = group; renderMoves(); focusAdd(); });
+    return b;
+  }
+  function addForm(group){
+    var f = document.createElement("div"); f.className = "mv-form";
+    var i = document.createElement("input");
+    i.type = "text"; i.id = "mv-name"; i.maxLength = 40; i.placeholder = "Lift name";
+    i.setAttribute("aria-label", "Lift name");
+    i.addEventListener("keydown", function(e){
+      if (e.key === "Enter"){ e.preventDefault(); addMove(group, i.value); }
+      if (e.key === "Escape"){ state.adding = ""; renderMoves(); }
+    });
+    var ok = document.createElement("button");
+    ok.type = "button"; ok.className = "mv-ok"; ok.textContent = "Add";
+    ok.addEventListener("click", function(){ addMove(group, i.value); });
+    var no = document.createElement("button");
+    no.type = "button"; no.textContent = "Cancel";
+    no.addEventListener("click", function(){ state.adding = ""; renderMoves(); });
+    f.appendChild(i); f.appendChild(ok); f.appendChild(no);
+    return f;
+  }
+  function focusAdd(){ var i = $("mv-name"); if (i) i.focus(); }
+
+  /* 이름 붙은 슬롯을 그 그룹의 독립 항목으로 올린다.
+     올리고 나면 그 무게는 부모 1RM 을 따라다니지 않는다 — 그게 승격의 요점. */
+  function promoteSlot(m, slot, idx){
+    var lb = toLb(slotWeight(m.id, slot.p));
+    var arr = moveSlots(m.id).slice(); arr.splice(idx, 1);
+    setSlots(m.id, arr);
+    var dup = null;
+    MOVES.forEach(function(x){
+      if (x.group === m.group && x.name.toLowerCase() === slot.l.toLowerCase()) dup = x;
+    });
+    if (dup){
+      if (!(state.data[dup.id].oneRM > 0)){ state.data[dup.id].oneRM = lb; state.data[dup.id].seeded = false; }
+      state.openMove = dup.id; prefSet("openmove", dup.id);
+      saveAll(); renderAll(); return;
+    }
+    addMove(m.group, slot.l, lb);
+  }
+
+  function addMove(group, name, lbSeed){
+    name = String(name || "").replace(/\s+/g, " ").trim().slice(0, 40);
+    if (!name){ focusAdd(); return; }
+    var base = "c-" + slug(name), id = base, n = 2;
+    while (moveById(id)) id = base + "-" + (n++);
+    var m = { id:id, name:name, group:group, custom:true };
+    MOVES.push(m); seedMove(m);
+    if (lbSeed > 0){ state.data[id].oneRM = lbSeed; state.data[id].seeded = false; }
+    state.adding = "";
+    state.openMove = id; prefSet("openmove", id);
+    saveAll(); renderAll();
+  }
+
+  function removeMove(m){
+    if (!m.custom) return;
+    if (state.delArm !== m.id){ state.delArm = m.id; renderMoves(); return; }
+    state.delArm = "";
+    MOVES.splice(MOVES.indexOf(m), 1);
+    delete state.data[m.id];
+    if (state.openMove === m.id){ state.openMove = ""; prefSet("openmove", ""); }
+    saveAll(); renderMoves();
+  }
+
+  function setTab(t){
+    state.tab = (t === "max") ? "max" : "w531";
+    prefSet("tab", state.tab);
+    $("tab-w531").hidden = state.tab === "max";
+    $("tab-max").hidden  = state.tab !== "max";
+    $("foot").hidden     = state.tab === "max";
+    $("t-w531").setAttribute("aria-pressed", String(state.tab !== "max"));
+    $("t-max").setAttribute("aria-pressed", String(state.tab === "max"));
+  }
+
   function renderAll(){
     $("u-lb").setAttribute("aria-pressed", String(state.unit === "lb"));
     $("u-kg").setAttribute("aria-pressed", String(state.unit === "kg"));
     renderLifts(); renderWeeks(); renderOpts(); renderTM(); renderSets(); renderSup(); renderHist();
+    renderMoves(); setTab(state.tab);
   }
 
   /* ---------- 저장 (이 기기에만) ---------- */
   function snapshot(){
-    var out = { v:1, lifts:{} };
-    LIFTS.forEach(function(l){
-      var d = state.data[l.id];
-      if (d.seeded && !d.history.length && !Object.keys(d.sup || {}).length) return;
-      out.lifts[l.id] = { oneRM:Math.round(d.oneRM * 100) / 100, history:d.history.slice(-200), sup:d.sup || {} };
+    var out = { v:1, lifts:{}, custom:[], order:MOVES.map(function(m){ return m.id; }) };
+    MOVES.forEach(function(l){
+      var d = state.data[l.id], slots = moveSlots(l.id);
+      if (l.custom) out.custom.push({ id:l.id, name:l.name, group:l.group });
+      var plain = d.seeded && !d.history.length && !Object.keys(d.sup || {}).length &&
+                  slotKey(slots) === slotKey(defSlots());
+      if (plain) return;
+      out.lifts[l.id] = { oneRM:Math.round(d.oneRM * 100) / 100, history:d.history.slice(-200),
+                          sup:d.sup || {}, slots:slots.slice() };
     });
     return out;
   }
@@ -1238,7 +1725,26 @@
   function importData(obj){
     if (!obj || !obj.lifts) return false;
     var n = 0;
-    LIFTS.forEach(function(l){
+    if (Object.prototype.toString.call(obj.custom) === "[object Array]"){
+      obj.custom.forEach(function(c){
+        if (!c || typeof c.id !== "string" || typeof c.name !== "string" || moveById(c.id)) return;
+        var m = { id:c.id, name:c.name.slice(0, 40), custom:true,
+                  group:(c.group === "oly" ? "oly" : "str") };
+        MOVES.push(m); seedMove(m);
+      });
+    }
+    if (Object.prototype.toString.call(obj.order) === "[object Array]"){
+      var rank = {}, base = {};
+      obj.order.forEach(function(id, i){ if (typeof id === "string") rank[id] = i; });
+      MOVES.forEach(function(m, i){ base[m.id] = i; });
+      MOVES.sort(function(a, b2){
+        var ra = (rank[a.id] === undefined) ? 1000 + base[a.id] : rank[a.id];
+        var rb = (rank[b2.id] === undefined) ? 1000 + base[b2.id] : rank[b2.id];
+        return ra - rb;
+      });
+      syncLifts();
+    }
+    MOVES.forEach(function(l){
       var b = obj.lifts[l.id];
       if (!b) return;
       var d = state.data[l.id];
@@ -1247,6 +1753,10 @@
         d.history = b.history.filter(function(e){
           return e && typeof e.lb === "number" && typeof e.reps === "number" && typeof e.d === "string";
         }).slice(-HIST_CAP);
+      }
+      if (Object.prototype.toString.call(b.slots) === "[object Array]"){
+        var sl = normSlots(b.slots);
+        d.slots = sl.length ? sl : defSlots();
       }
       if (b.sup && typeof b.sup === "object"){
         d.sup = {};
@@ -1349,6 +1859,9 @@
     bkMsg("Restored.");
   });
 
+  $("t-w531").addEventListener("click", function(){ setTab("w531"); });
+  $("t-max").addEventListener("click", function(){ setTab("max"); });
+
   loadAll();
   renderAll();
   fillBackup();
@@ -1357,7 +1870,7 @@
 </script>
 <script>
   (function(){
-    var CURRENT = "26.09.20-1";
+    var CURRENT = "26.09.20-2";
     var btn = document.getElementById("upd");
     var latest = null;
 
