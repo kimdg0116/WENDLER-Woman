@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#EDEEF1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Wendler 5/3/1 세트·원판 계산기">
+<meta name="description" content="Wendler 5/3/1 set and plate calculator">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -22,10 +22,10 @@
   img{max-width:100%}
   [hidden]{display:none!important}
 </style>
-<title>웬들러 5·3·1</title>
+<title>Wendler 5/3/1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root{
     --ground:#EDEEF1;
@@ -44,6 +44,11 @@
     --radius:10px;
   }
   @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .jk{
+      --accent:#B9A2F2;
+      --accent-ink:#241638;
+      --accent-soft:#2E2447;
+    }
     :root:not([data-theme="light"]){
       --ground:#111317;
       --surface:#1A1D22;
@@ -59,6 +64,11 @@
       --good:#4CC98A;
       --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.28);
     }
+  }
+  :root[data-theme="dark"] .jk{
+    --accent:#B9A2F2;
+    --accent-ink:#241638;
+    --accent-soft:#2E2447;
   }
   :root[data-theme="dark"]{
     --ground:#111317;
@@ -81,7 +91,7 @@
     margin:0;
     background:var(--ground);
     color:var(--ink);
-    font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-family:"IBM Plex Sans","IBM Plex Sans KR","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     font-size:15px;
     line-height:1.5;
     -webkit-text-size-adjust:100%;
@@ -104,7 +114,7 @@
     padding-bottom:10px;
     border-bottom:1px solid var(--line-soft);
   }
-  .brand{font-family:Oswald,"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:21px;letter-spacing:.11em;line-height:1;min-width:0}
+  .brand{font-family:Oswald,"IBM Plex Sans","IBM Plex Sans KR",sans-serif;font-weight:700;font-size:21px;letter-spacing:.11em;line-height:1;min-width:0}
   .top-r{display:flex;align-items:center;gap:8px;flex:none}
   .icon-btn{
     border:1px solid var(--line);background:var(--surface);border-radius:999px;
@@ -147,13 +157,27 @@
   .tm-mode{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3);cursor:pointer;user-select:none}
   .tm-mode input{accent-color:var(--accent);width:15px;height:15px;margin:0}
 
-  .weeks{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--surface)}
+  .cyc-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+  .cyc-row .cyc-l{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .cyc-pick{display:flex;gap:6px}
+  .cyc-pick button{border:1px solid var(--line);background:transparent;border-radius:7px;padding:4px 12px;color:var(--ink-2);text-align:center}
+  .cyc-pick button b{display:block;font-size:12px;font-weight:700;letter-spacing:.01em}
+  .cyc-pick button i{display:block;font-style:normal;font-size:9.5px;color:var(--ink-3);letter-spacing:.06em}
+  .cyc-pick button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .cyc-pick button[aria-pressed="true"] i{color:var(--accent);opacity:.75}
+  .cyc-desc{font-size:11px;color:var(--ink-3);line-height:1.5;margin:0 2px 7px}
+  .cyc-note{font-size:11px;color:var(--ink-2);font-weight:700;line-height:1.5;margin:6px 2px 0}
+  .weeks{display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+  .weeks::-webkit-scrollbar{display:none}
+  .weeks button{flex:0 0 25%}
   .weeks button{border:0;border-right:1px solid var(--line);background:transparent;padding:9px 2px;text-align:center;color:var(--ink-2)}
   .weeks button:last-child{border-right:0}
-  .weeks button b{display:block;font-family:Oswald,sans-serif;font-size:16px;font-weight:600}
+  .weeks button u{display:block;text-decoration:none;font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--ink-3)}
+  .weeks button b{display:block;font-family:Oswald,sans-serif;font-size:16px;font-weight:600;line-height:1.15}
   .weeks button i{display:block;font-style:normal;font-size:10px;color:var(--ink-3);letter-spacing:.04em;margin-top:1px}
   .weeks button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
-  .weeks button[aria-pressed="true"] i{color:var(--ground);opacity:.62}
+  .weeks button[aria-pressed="true"] i,
+  .weeks button[aria-pressed="true"] u{color:var(--ground);opacity:.62}
 
   /* ---- 옵션 바 ---- */
   .opts{padding:11px 14px;border-bottom:1px solid var(--line-soft);display:flex;flex-direction:column;gap:9px}
@@ -237,6 +261,64 @@
   .sup-block .pct{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
   .sup-block .plates{grid-column:1 / -1}
   .sup-block .blab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;grid-column:1 / -1;margin-bottom:-2px}
+  .sup-block .blab .bfull{margin-left:7px;letter-spacing:.02em;text-transform:none;font-size:11.5px;font-weight:500;color:var(--ink-3)}
+  .sup-block .scheme i{font-style:normal;margin-left:7px;font-size:11px;color:var(--ink-3);border:1px solid var(--line);border-radius:4px;padding:1px 5px;vertical-align:1px}
+  .sup-desc{white-space:pre-line}
+  .jk{
+    --accent:#6B4BA8;
+    --accent-ink:#F8F5FF;
+    --accent-soft:#EDE7F9;
+    background:color-mix(in srgb, var(--accent) 9%, var(--surface));
+    border-top:1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+    box-shadow:inset 3px 0 0 var(--accent);
+    padding:13px 14px;border-radius:0 0 var(--radius) var(--radius);
+    animation:jkIn .38s cubic-bezier(.2,.9,.3,1.15) backwards;
+  }
+  @keyframes jkIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  .jk-h{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .jk-h .t{
+    font-family:Oswald,sans-serif;font-size:22px;font-weight:700;letter-spacing:.17em;
+    line-height:1;text-transform:uppercase;color:var(--accent);
+    background:linear-gradient(100deg,var(--accent) 34%,color-mix(in srgb,var(--accent) 30%,var(--ink)) 50%,var(--accent) 66%);
+    background-size:220% 100%;-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;animation:jkShine 2.2s ease-in-out .35s 3;
+  }
+  @keyframes jkShine{0%,72%{background-position:120% 0}100%{background-position:-20% 0}}
+  .jk-h .f{font-size:12px;color:var(--ink-2);flex:1;min-width:80px}
+  .jk-go{
+    border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);
+    border-radius:9px;padding:0 14px;height:38px;min-width:158px;
+    font-size:13px;font-weight:700;letter-spacing:.01em;flex:none;text-align:center;margin-left:auto;
+  }
+  .jk-go.on{background:transparent;color:var(--accent)}
+  .jk-gate{font-size:12px;color:var(--ink-2);line-height:1.55;margin:9px 0 0}
+  .jk-gate b{color:var(--accent);font-weight:700}
+  .jk-sub{font-size:11.5px;color:var(--ink-3);line-height:1.5;margin:6px 0 0}
+  .jk-list{margin-top:10px;border-top:1px solid color-mix(in srgb, var(--accent) 22%, transparent)}
+  .jk-row{
+    display:grid;grid-template-columns:auto 1fr auto;gap:3px 10px;align-items:center;
+    padding:10px 0;border-bottom:1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+    animation:jkSlot .34s cubic-bezier(.15,.85,.3,1.25) backwards;
+  }
+  @keyframes jkSlot{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+  .jk-row:last-child{border-bottom:0}
+  .jk-row .n{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .jk-row .w{font-family:Oswald,sans-serif;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+  .jk-row .w em{font-style:normal;font-size:12px;font-weight:500;color:var(--accent);margin-left:3px}
+  .jk-row .p{font-size:11.5px;color:var(--ink-3);grid-column:2 / -1;text-align:right;margin-top:-2px}
+  .jk-row .plates{grid-column:1 / -1}
+  .jk-row .jact{grid-column:1 / -1;display:flex;justify-content:flex-end;margin-top:-2px}
+  .jk-row .jlog{
+    border:1px solid var(--accent);background:transparent;color:var(--accent);
+    border-radius:7px;padding:0 13px;height:30px;font-size:12px;font-weight:700;
+  }
+  .jk-row .jlog.done{background:var(--accent);color:var(--accent-ink)}
+  .jk-row.far{opacity:.42}
+  .jk-row.far .w{color:var(--ink-3)}
+  @media (prefers-reduced-motion:reduce){
+    .jk,.jk-row{animation:none}
+    .jk-h .t{animation:none;-webkit-text-fill-color:var(--accent)}
+  }
   .wt-in{
     font:inherit;color:inherit;width:3.6ch;min-width:0;padding:0 2px;margin:0;
     background:transparent;border:0;border-bottom:1.5px dashed var(--line);border-radius:0;
@@ -275,7 +357,7 @@
   .hrow .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
   .hrow .w{font-size:11px;color:var(--ink-3)}
   .hrow .s{font-family:Oswald,sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
-  .hrow .hsub{display:block;font-family:"IBM Plex Sans KR",sans-serif;font-size:11.5px;font-weight:500;color:var(--ink-3);margin-top:1px}
+  .hrow .hsub{display:block;font-family:"IBM Plex Sans","IBM Plex Sans KR",sans-serif;font-size:11.5px;font-weight:500;color:var(--ink-3);margin-top:1px}
   .hrow .e{font-family:Oswald,sans-serif;font-size:13.5px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
   .hrow.best .e{color:var(--good)}
   .hrow.sup{background:var(--surface-2)}
@@ -311,7 +393,7 @@
   .tabs{display:flex;align-items:baseline;gap:13px;min-width:0}
   .tabs button{
     border:0;background:transparent;padding:0;color:var(--ink-3);
-    font-family:Oswald,"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:21px;letter-spacing:.11em;line-height:1;
+    font-family:Oswald,"IBM Plex Sans","IBM Plex Sans KR",sans-serif;font-weight:700;font-size:21px;letter-spacing:.11em;line-height:1;
   }
   .tabs button[aria-pressed="true"]{color:var(--ink)}
   #tab-w531,#tab-max{display:flex;flex-direction:column;gap:14px}
@@ -434,7 +516,13 @@
     <p class="tm-note" id="tm-note"></p>
   </section>
 
+  <div class="cyc-row">
+    <span class="cyc-l">Cycle</span>
+    <div class="cyc-pick" id="cycle-pick" role="group" aria-label="Cycle length"></div>
+  </div>
+  <p class="cyc-desc" id="cyc-desc"></p>
   <div class="weeks" id="weeks" role="group" aria-label="Week"></div>
+  <p class="cyc-note" id="cyc-note"></p>
 
   <section class="card">
     <div class="card-h">
@@ -452,6 +540,7 @@
     </div>
     <div class="sets" id="sets"></div>
     <div id="max-block"></div>
+    <div id="joker"></div>
   </section>
 
   <section class="card">
@@ -495,9 +584,8 @@
   <p class="storage" id="storage"></p>
 
   <p class="foot" id="foot">
-    <b>TM = 1RM × 90%.</b> 일부러 낮춰 잡아야 마지막 <b>+</b> 세트에서 개수가 나옵니다.
-    한 사이클(4주)이 끝나면 상체 +5 lb, 하체 +10 lb 올리세요.
-    <b>+</b> 세트 개수가 지난 사이클보다 줄었다면 TM 이 높거나 보조 볼륨이 과한 것입니다.
+    <b>A calculator for Wendler 5/3/1 template variants.</b><br>
+    Built on the 7-week spreadsheet template by <b>YachuHUB</b>.
   </p>
 
   <p class="ver" id="ver"></p>
@@ -511,7 +599,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.20-5";
+  var APP_VERSION = "26.09.22-13";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -544,11 +632,11 @@
     { id:"clean",          name:"Clean",          group:"oly" },
     { id:"clean-jerk",     name:"Clean & Jerk",   group:"oly" },
     { id:"snatch",         name:"Snatch",         group:"oly" },
-    { id:"back-squat",     name:"Back Squat",     group:"str", w531:true },
-    { id:"front-squat",    name:"Front Squat",    group:"str", w531:true },
+    { id:"back-squat",     name:"Back Squat",     group:"str", w531:true, lower:true },
+    { id:"front-squat",    name:"Front Squat",    group:"str", w531:true, lower:true },
+    { id:"deadlift",       name:"Deadlift",       group:"str", w531:true, lower:true },
     { id:"shoulder-press", name:"Shoulder Press", group:"str", w531:true },
-    { id:"bench-press",    name:"Bench Press",    group:"str", w531:true },
-    { id:"deadlift",       name:"Deadlift",       group:"str", w531:true }
+    { id:"bench-press",    name:"Bench Press",    group:"str", w531:true }
   ];
   var LIFTS = MOVES.filter(function(m){ return m.w531; });
   function syncLifts(){ LIFTS = MOVES.filter(function(m){ return m.w531; }); }
@@ -556,28 +644,76 @@
 
   var WARMUP = [[40,"5"],[50,"5"],[60,"3"]];
   var WEEKS = {
-    "w5":   { n:"1", tag:"5s",    sub:"5 / 5 / 5+", work:[[65,"5"],[75,"5"],[85,"5+"]] },
-    "w3":   { n:"2", tag:"3s",    sub:"3 / 3 / 3+", work:[[70,"3"],[80,"3"],[90,"3+"]] },
-    "w531": { n:"3", tag:"5/3/1", sub:"5 / 3 / 1+", work:[[75,"5"],[85,"3"],[95,"1+"]] },
-    "wdl":  { n:"4", tag:"Deload", sub:"deload",     work:[[40,"5"],[50,"5"],[60,"5"]] }
+    "w5":   { tag:"5s",     phase:"Hypertrophy", sub:"5 / 5 / 5+",          work:[[65,"5"],[75,"5"],[85,"5+"]] },
+    "w3":   { tag:"3s",     phase:"Transition",  sub:"3 / 3 / 3+",          work:[[70,"3"],[80,"3"],[90,"3+"]] },
+    "w531": { tag:"5/3/1",  phase:"Strength",    sub:"5 / 3 / 1+",          work:[[75,"5"],[85,"3"],[95,"1+"]] },
+    "w5f":  { tag:"5s",     phase:"Recovery",    sub:"5 / 5 / 5 · no AMRAP", work:[[65,"5"],[75,"5"],[85,"5"]] },
+    "wdl":  { tag:"Deload", phase:"Rest",        sub:"deload",              work:[[40,"5"],[50,"5"],[60,"5"]] }
   };
-  var WEEK_ORDER = ["w5","w3","w531","wdl"];
+  /* 야추 7주 = 전3주 + 후3주 + 디로딩. 후3주는 전3주와 같고 TM 만 오른다.
+     bump[i] = 그 주차에 적용된 TM 증량 횟수 (상체 +2.5kg/5lb · 하체 +5kg/10lb). */
+  var CYCLES = {
+    c7: { label:"7 week", sub:"5·3·1", order:["w5","w3","w531","w5","w3","w531","wdl"], bump:[0,0,0,1,1,1,1],
+          desc:"Three weeks, the same three again with a higher TM, then a deload." },
+    c4: { label:"4 week", sub:"3·5·1", order:["w3","w5f","w531","wdl"],                 bump:[0,0,0,0],
+          desc:"351 — the middle week is a flat 5, no AMRAP and no jokers. Built to manage fatigue." }
+  };
+  var CYCLE_ORDER = ["c7","c4"];
+  function cyc(){ return CYCLES[state.cycle]; }
+  function weekKey(){ return cyc().order[state.wi]; }
+  function weekObj(){ return WEEKS[weekKey()]; }
+  function isDeload(){ return weekKey() === "wdl"; }
+  function tmStepDisp(lower){ return state.unit === "kg" ? (lower ? 5 : 2.5) : (lower ? 10 : 5); }
+  function tmBumpDisp(){ return (cyc().bump[state.wi] || 0) * tmStepDisp(!!curLift().lower); }
 
+  /* 야추 7주 템플릿 기준. 상체 8회 / 스쿼트·데드는 Taxing 때문에 4회 (BBB 는 10 / 5).
+     from = 그날 본세트 인덱스에서 강도를 따옴. pct = TM 고정 %. */
   var SUPS = {
-    none:  { label:"None", blocks:[], desc:"메인 세트만. 와드가 무거운 날이나 어깨·허리에 여파가 남은 날." },
-    bbb8d: { label:"BBB + Back-off",
-             blocks:[ {sets:5, reps:8, key:"d1", lab:"BBB"}, {sets:5, reps:8, key:"d2", lab:"Back-off"} ],
-             desc:"박스에서 하는 방식. BBB 무게로 5세트 × 8회를 하고, 무게를 낮춘 back-off 로 5세트 × 8회를 한 번 더. 총 80회라 웬들러 보조 중 볼륨이 가장 많습니다 — 와드까지 하는 날은 % 를 낮춰 잡으세요." },
-    bbb8:  { label:"BBB 5×8",  blocks:[ {sets:5, reps:8,  key:"d1", lab:"BBB"} ],
-             desc:"back-off 없이 BBB 한 블록만. 정석 5×10 의 볼륨을 줄인 변형입니다." },
-    bbb10: { label:"BBB 5×10", blocks:[ {sets:5, reps:10, key:"d1", lab:"BBB"} ],
-             desc:"Boring But Big 정석. 같은 종목 5세트 × 10회. 근비대용이고 웬들러 템플릿 중 볼륨이 많은 축입니다." },
-    fsl:   { label:"FSL 5×5",  blocks:[ {sets:5, reps:5,  src:"first", lab:"FSL"} ],
-             desc:"First Set Last — 오늘 Set 1 무게로 5세트 × 5회. 볼륨이 BBB 의 절반이라 와드 병행할 때 회복이 쉽습니다." },
-    bbs:   { label:"BBS 10×5", blocks:[ {sets:10, reps:5, src:"first", lab:"BBS"} ],
-             desc:"Boring But Strong — 오늘 Set 1 무게로 10세트 × 5회. 총 반복은 BBB 5×10 과 같은 50회지만 톤수는 약 1.4배. 리프팅만 할 때." }
+    ssl: { label:"SSL", full:"Second Set Last", key:"ssl", from:1, weekly:true,
+           sets:5, repsUp:8, repsLo:4, grade:"Hard",
+           desc:"Five sets at today's Set 2 weight. The heaviest supplemental — step up here once FSL stops being hard." },
+    fsl: { label:"FSL", full:"First Set Last",  key:"fsl", from:0, weekly:true,
+           sets:5, repsUp:8, repsLo:4, grade:"Default",
+           desc:"Five sets at today's Set 1 weight. The template's default choice." },
+    bbb: { label:"BBB", full:"Boring But Big",  key:"bbb", pct:50,
+           sets:5, repsUp:10, repsLo:5, grade:"Easy",
+           desc:"Light and high-rep at 50% TM. Lowest total load — hypertrophy and rep practice. Drop down to this on heavy WOD days." },
+    freq:{ label:"Freq", full:"Frequency Up", key:"freq", pct:90, cross:true,
+           sets:3, repsUp:5, repsLo:5, grade:"Cross",
+           desc:"Your paired lift at 90% TM, 5 reps x 3 sets. Squat day pairs with deadlift, press day with bench. Rest 3 min." },
+    dad: { label:"D.A.D", full:"Do And Die",    key:"dad", pct:81, basis:"orm",
+           sets:5, repsUp:5, repsLo:5,
+           desc:"81% of your true 1RM — not TM — for 5 reps x 5 sets. Most people fail it. The template is explicit that it backfires unless you are an outlier." }
   };
-  var SUP_ORDER = ["bbb8d","bbb8","bbb10","fsl","bbs","none"];
+  var SUP_ORDER = ["ssl","fsl","bbb","freq","dad"];
+  /* 빈도UP 짝 종목 — PR세트 기준 교차 */
+  var PAIR = { "back-squat":"deadlift", "front-squat":"deadlift", "deadlift":"back-squat",
+               "shoulder-press":"bench-press", "bench-press":"shoulder-press" };
+  function supReps(k){ return curLift().lower ? SUPS[k].repsLo : SUPS[k].repsUp; }
+  function supPct(k){
+    var s = SUPS[k];
+    return typeof s.pct === "number" ? s.pct : weekObj().work[s.from][0];
+  }
+  /* 블록의 기준 무게. 교차 종목(빈도UP)은 짝 종목의 TM, D.A.D 는 실제 1RM 기준 */
+  function supBase(k){
+    var s = SUPS[k], pct = supPct(k);
+    if (s.basis === "orm"){
+      var orm = toDisp(cur().oneRM);
+      return { weight:roundBar(orm * pct / 100), note:pct + "% of true 1RM",
+               basis:orm, unitLab:"% of true 1RM", ok:true };
+    }
+    if (s.cross){
+      var pid = PAIR[state.lift], pd = pid ? state.data[pid] : null;
+      var pm = pid ? moveById(pid) : null;
+      if (!pd || !(pd.oneRM > 0)) return { weight:0, note:"Enter a 1RM for " + (pm ? pm.name : "the paired lift") + " first", ok:false, pair:pm };
+      var ptm = roundBar(toDisp(pd.oneRM) * 0.9) + (cyc().bump[state.wi] || 0) * tmStepDisp(!!pm.lower);
+      return { weight:roundBar(ptm * pct / 100), note:pm.name + " TM · " + pct + "%",
+               basis:ptm, unitLab:"% of " + pm.name + " TM", ok:true, pair:pm };
+    }
+    return { weight:setWeight(pct), note:pct + "% TM" + (s.weekly ? " · Set " + (s.from + 1) + " weight" : ""),
+             basis:tmDisp(), unitLab:"% TM", ok:true };
+  }
+  function supMemKey(k){ return SUPS[k].weekly ? SUPS[k].key + "." + state.cycle + state.wi : SUPS[k].key; }
 
   var COLOR = {
     lb: { 45:["#2F6FB5",1], 35:["#D9A400",0], 25:["#2E8B50",1], 15:["#D7DAE0",0],
@@ -592,10 +728,10 @@
 
   var LB_PER_KG = 2.2046226;
   var state = {
-    unit:"lb", lift:LIFTS[0].id, week:"w5", sup:"bbb8",
+    unit:"lb", lift:LIFTS[0].id, cycle:"c7", wi:0, sups:["ssl","fsl"], jokerOpen:false,
     tab:"w531", mvGroup:"oly", reorder:false, openMove:"", adding:"", delArm:"",
     tmDirect:false, ladder:true, snapWarm:true,
-    bar:{ lb:45, kg:20 }, owned:{ lb:{}, kg:{} }, supPct:{ d1:50, d2:40 },
+    bar:{ lb:45, kg:20 }, owned:{ lb:{}, kg:{} },
     reps:{}, data:{}
   };
 
@@ -625,12 +761,27 @@
 
   state.unit = prefGet("unit","lb") === "kg" ? "kg" : "lb";
   state.lift = (function(){ var v = prefGet("lift",""); return LIFTS.some(function(l){return l.id===v;}) ? v : LIFTS[0].id; })();
-  state.week = (function(){ var v = prefGet("week",""); return WEEKS[v] ? v : "w5"; })();
-  state.sup  = (function(){ var v = prefGet("sup","");  return SUPS[v] ? v : "bbb8d"; })();
-  ["d1","d2"].forEach(function(k){
-    var v = parseInt(prefGet("suppct."+k, ""), 10);
-    if (isFinite(v) && v >= 20 && v <= 70) state.supPct[k] = v;
-  });
+  state.cycle = CYCLES[prefGet("cycle","")] ? prefGet("cycle","") : "c7";
+  state.wi = (function(){
+    var v = parseInt(prefGet("wi",""), 10);
+    if (isFinite(v) && v >= 0 && v < cyc().order.length) return v;
+    var old = prefGet("week","");                       /* 구버전 pref 이관 */
+    var i = cyc().order.indexOf(old);
+    return i >= 0 ? i : 0;
+  })();
+  state.sups = (function(){
+    var raw = prefGet("sups", null);
+    if (raw !== null){
+      var out = raw.split(",").filter(function(k){ return !!SUPS[k]; });
+      return out;                                   /* 빈 배열 = 추가볼륨 없음, 정상 상태 */
+    }
+    /* 구버전 pref 이관 */
+    var old = prefGet("sup","");
+    if (old === "none") return [];
+    if (old === "fsl" || old === "bbs") return ["fsl"];
+    if (old.indexOf("bbb") === 0) return ["bbb"];
+    return ["ssl","fsl"];
+  })();
   state.tab      = prefGet("tab","w531") === "max" ? "max" : "w531";
   state.mvGroup  = prefGet("mvgroup","oly") === "str" ? "str" : "oly";
   state.openMove = (function(){
@@ -656,10 +807,14 @@
   function toDisp(lb){ return state.unit === "kg" ? lb / LB_PER_KG : lb; }
   function toLb(v){ return state.unit === "kg" ? v * LB_PER_KG : v; }
   function roundBar(v){ var st = GEAR[state.unit].step; return Math.round(v / st) * st; }
-  function fmt(v){ var r = Math.round(v * 10) / 10; return (r % 1 === 0) ? String(r) : r.toFixed(1); }
+  function fmt(v){
+    var r = Math.round(v * 100) / 100;
+    if (r % 1 === 0) return String(r);
+    return (Math.round(r * 10) / 10 === r) ? r.toFixed(1) : r.toFixed(2);  /* 1.25kg 원판 */
+  }
   function cur(){ return state.data[state.lift]; }
   function curLift(){ for (var i=0;i<LIFTS.length;i++) if (LIFTS[i].id===state.lift) return LIFTS[i]; return LIFTS[0]; }
-  function tmDisp(){ return roundBar(toDisp(cur().oneRM) * 0.9); }
+  function tmDisp(){ return roundBar(toDisp(cur().oneRM) * 0.9) + tmBumpDisp(); }
   function setWeight(pct){ return roundBar(tmDisp() * pct / 100); }
   function q(v){ return Math.round(v * 4); }
   function unq(n){ return n / 4; }
@@ -853,18 +1008,43 @@
   }
 
   function renderWeeks(){
+    var cp = $("cycle-pick"); cp.textContent = "";
+    CYCLE_ORDER.forEach(function(ck){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(ck === state.cycle));
+      var t = document.createElement("b"); t.textContent = CYCLES[ck].label;
+      var u = document.createElement("i"); u.textContent = CYCLES[ck].sub;
+      b.appendChild(t); b.appendChild(u);
+      b.addEventListener("click", function(){
+        if (ck === state.cycle) return;
+        state.cycle = ck;
+        if (state.wi >= cyc().order.length) state.wi = cyc().order.length - 1;
+        prefSet("cycle", ck); prefSet("wi", String(state.wi));
+        renderAll();
+      });
+      cp.appendChild(b);
+    });
+    $("cyc-desc").textContent = cyc().desc;
+    var nb = (cyc().bump[state.wi] || 0) * tmStepDisp(!!curLift().lower);
+    $("cyc-note").textContent = "Week " + (state.wi + 1) + " of " + cyc().order.length +
+                                (nb ? " · TM +" + fmt(nb) + " " + state.unit : "");
+
     var box = $("weeks"); box.textContent = "";
-    WEEK_ORDER.forEach(function(k){
+    cyc().order.forEach(function(k, idx){
       var w = WEEKS[k];
       var b = document.createElement("button");
       b.type = "button";
-      b.setAttribute("aria-pressed", String(k === state.week));
+      b.setAttribute("aria-pressed", String(idx === state.wi));
+      var num = document.createElement("u"); num.textContent = "W" + (idx + 1);
       var n = document.createElement("b"); n.textContent = w.tag;
-      var i = document.createElement("i"); i.textContent = "Week " + w.n;
-      b.appendChild(n); b.appendChild(i);
-      b.addEventListener("click", function(){ state.week = k; prefSet("week", k); renderAll(); });
+      var i = document.createElement("i"); i.textContent = w.phase;
+      b.appendChild(num); b.appendChild(n); b.appendChild(i);
+      b.addEventListener("click", function(){ state.wi = idx; prefSet("wi", String(idx)); renderAll(); });
       box.appendChild(b);
     });
+    var sel = box.children[state.wi];
+    if (sel) box.scrollLeft = Math.max(0, sel.offsetLeft - box.clientWidth / 2 + sel.clientWidth / 2);
   }
 
   function renderOpts(){
@@ -959,13 +1139,14 @@
   }
 
   function renderSets(){
-    var w = WEEKS[state.week], deload = state.week === "wdl";
+    var w = weekObj(), deload = isDeload();
     var box = $("sets"); box.textContent = "";
     $("sets-h").textContent = deload ? "Deload Sets" : "Warm-up + Work Sets";
-    $("sets-sub").textContent = deload ? "No AMRAP · easy" : w.sub;
+    $("sets-sub").textContent = deload ? "No AMRAP · easy" : w.phase + " · " + w.sub;
     if (!(cur().oneRM > 0)){
       RAMP = [];
       $("max-block").textContent = "";
+      $("joker").textContent = "";
       box.appendChild(emptyNote("Enter a 1RM above to get your sets."));
       return;
     }
@@ -992,6 +1173,7 @@
       if (x.amrap){ renderMax(mb, x, steps[i]); return; }
       box.appendChild(makeRow(x.cls, x.tag, x.weight, x.reps, steps[i], x.pct));
     });
+    renderJoker();
   }
 
   function renderMax(mb, item, step){
@@ -1044,8 +1226,8 @@
       }
     }
     paint();
-    minus.addEventListener("click", function(){ if (reps > 0){ reps--; state.reps[state.lift]=reps; paint(); } });
-    plus.addEventListener("click",  function(){ if (reps < 60){ reps++; state.reps[state.lift]=reps; paint(); } });
+    minus.addEventListener("click", function(){ if (reps > 0){ reps--; state.reps[state.lift]=reps; paint(); renderJoker(); } });
+    plus.addEventListener("click",  function(){ if (reps < 60){ reps++; state.reps[state.lift]=reps; paint(); renderJoker(); } });
     save.addEventListener("click", function(){
       if (reps < 1) return;
       logSet(weight, reps, item.pct);
@@ -1056,7 +1238,7 @@
   }
 
   var RAMP = [];
-  function tmLb(){ return cur().oneRM * 0.9; }
+  function tmLb(){ return cur().oneRM * 0.9 + toLb(tmBumpDisp()); }
 
   /* 보조 블록 원판: 같은 무게면 그 세트 구성 그대로, 다르면 가장 가까운 무게의 세트 구성을 고친다 */
   function supPlates(weight, candidates, lastBlock){
@@ -1092,142 +1274,163 @@
   }
 
   function renderSup(){
+    var pick = $("sup-pick"), body = $("sup-body");
+    pick.textContent = ""; body.textContent = ""; $("sup-desc").textContent = "";
     if (!(cur().oneRM > 0)){
-      $("sup-body").textContent = ""; $("sup-desc").textContent = "";
-      $("sup-pick").textContent = "";
-      $("sup-body").appendChild(emptyNote("Enter a 1RM above to get your supplemental work."));
+      body.appendChild(emptyNote("Enter a 1RM above to get your supplemental work."));
       return;
     }
-    var pick = $("sup-pick"); pick.textContent = "";
+
+    /* 탭 — 멀티 선택. 야추 순서(SSL → FSL → BBB)로 고정 표시·실행 */
     SUP_ORDER.forEach(function(k){
+      var on = state.sups.indexOf(k) >= 0;
       var b = document.createElement("button");
       b.type = "button";
-      b.setAttribute("aria-pressed", String(k === state.sup));
+      b.setAttribute("aria-pressed", String(on));
       b.textContent = SUPS[k].label;
-      b.addEventListener("click", function(){ state.sup = k; prefSet("sup", k); renderSup(); });
+      b.title = SUPS[k].full;
+      b.addEventListener("click", function(){
+        var i = state.sups.indexOf(k);
+        if (i >= 0) state.sups.splice(i, 1); else state.sups.push(k);
+        state.sups = SUP_ORDER.filter(function(x){ return state.sups.indexOf(x) >= 0; });
+        prefSet("sups", state.sups.join(","));
+        renderSup();
+      });
       pick.appendChild(b);
     });
 
-    var body = $("sup-body"); body.textContent = "";
-    var s = SUPS[state.sup];
-    $("sup-desc").textContent = s.desc;
-    if (!s.blocks.length) return;
+    var picked = SUP_ORDER.filter(function(k){ return state.sups.indexOf(k) >= 0; });
+    if (!picked.length){
+      $("sup-desc").textContent = "Main sets only. For heavy WOD days, or when the last session is still with you.";
+      return;
+    }
+    $("sup-desc").textContent = picked.map(function(k){ return SUPS[k].label + " — " + SUPS[k].desc; }).join("\n\n");
 
-    var multi = s.blocks.length > 1;
+    var lower = !!curLift().lower;
     var totalReps = 0;
-    s.blocks.forEach(function(bk){ totalReps += bk.sets * bk.reps; });
+    picked.forEach(function(k){ totalReps += SUPS[k].sets * supReps(k); });
 
     var prevBlock = null;
-    s.blocks.forEach(function(bk, bi){
-      var d = cur();
-      var tmD = tmDisp();
-      var defPct = bk.src === "first" ? WEEKS[state.week].work[0][0] : state.supPct[bk.key];
-      var planWeight = setWeight(defPct);
-      var mem = bk.key ? d.sup[bk.key] : null;
+    picked.forEach(function(k, bi){
+      var sup = SUPS[k], d = cur();
+      var memKey  = supMemKey(k);
+      var defPct  = supPct(k);
+      var sets    = sup.sets, reps = supReps(k);
+      var base    = supBase(k);
+      var planWeight = base.weight;
+      if (!base.ok){
+        var warnBlk = document.createElement("div"); warnBlk.className = "sup-block";
+        var wl = document.createElement("div"); wl.className = "blab";
+        wl.appendChild(document.createTextNode(sup.label));
+        var wf = document.createElement("span"); wf.className = "bfull";
+        wf.textContent = sup.full + (sup.grade ? " · " + sup.grade : ""); wl.appendChild(wf);
+        var wn = document.createElement("div"); wn.className = "pct";
+        wn.style.gridColumn = "1 / -1"; wn.style.whiteSpace = "normal"; wn.textContent = base.note;
+        warnBlk.appendChild(wl); warnBlk.appendChild(wn);
+        body.appendChild(warnBlk);
+        return;
+      }
+      var mem = d.sup[memKey];
       var weight = mem ? Math.round(toDisp(mem.lb) * 10) / 10 : planWeight;
-      var realPct = tmD > 0 ? Math.round(weight / tmD * 100) : defPct;
+      var edited = !!mem && Math.abs(weight - planWeight) > 0.01;
+      var realPct = base.basis > 0 ? Math.round(weight / base.basis * 100) : defPct;
 
       var blk = document.createElement("div"); blk.className = "sup-block";
 
       var bl = document.createElement("div"); bl.className = "blab";
-      bl.textContent = bk.lab || s.label;
+      bl.appendChild(document.createTextNode(sup.label));
+      var bf = document.createElement("span"); bf.className = "bfull";
+      bf.textContent = sup.full + (sup.grade ? " · " + sup.grade : "");
+      bl.appendChild(bf);
       blk.appendChild(bl);
 
       var mid = document.createElement("div");
       var wt = document.createElement("div"); wt.className = "wt";
-      if (bk.key){
-        var inp = document.createElement("input");
-        inp.type = "number"; inp.inputMode = "decimal"; inp.className = "wt-in";
-        inp.id = "sup-w-" + bk.key;
-        inp.step = GEAR[state.unit].step; inp.min = "0";
-        inp.value = fmt(weight);
-        inp.setAttribute("aria-label", (bk.lab || s.label) + " weight");
-        var commit = function(){
-          var v = parseFloat(inp.value);
-          if (!isFinite(v) || v <= 0){ inp.value = fmt(weight); return; }
-          if (Math.abs(v - weight) < 0.01) return;
-          d.sup[bk.key] = { lb:toLb(v), tm:tmLb() };
-          saveAll(); fillBackup(); renderSup();
-        };
-        inp.addEventListener("change", commit);
-        inp.addEventListener("keydown", function(e){ if (e.key === "Enter") inp.blur(); });
-        wt.appendChild(inp);
-      } else {
-        wt.appendChild(document.createTextNode(fmt(weight)));
-      }
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.inputMode = "decimal"; inp.className = "wt-in";
+      inp.id = "sup-w-" + k;
+      inp.step = GEAR[state.unit].step; inp.min = "0";
+      inp.value = fmt(weight);
+      inp.setAttribute("aria-label", sup.full + " weight");
+      var commit = function(){
+        var v = parseFloat(inp.value);
+        if (!isFinite(v) || v <= 0){ inp.value = fmt(weight); return; }
+        if (Math.abs(v - weight) < 0.01) return;
+        d.sup[memKey] = { lb:toLb(v), tm:tmLb() };
+        saveAll(); fillBackup(); renderSup();
+      };
+      inp.addEventListener("change", commit);
+      inp.addEventListener("keydown", function(e){ if (e.key === "Enter") inp.blur(); });
+      wt.appendChild(inp);
       var em = document.createElement("em"); em.textContent = state.unit; wt.appendChild(em);
 
       var sc = document.createElement("div"); sc.className = "scheme";
-      sc.innerHTML = "<b>" + bk.sets + "</b> sets <span>×</span> <b>" + bk.reps + "</b> reps";
+      var badge = SUPS[k].cross && base.pair ? base.pair.name
+                                              : (lower ? "Lower" : "Upper");
+      sc.innerHTML = "<b>" + sets + "</b> sets <span>×</span> <b>" + reps + "</b> reps" +
+                     "<i>" + badge + "</i>";
       var pc = document.createElement("div"); pc.className = "pct";
-      pc.textContent = (bk.src === "first" ? defPct + "% TM · same as Set 1" : "≈ " + realPct + "% TM") +
-                       " · " + (bk.sets * bk.reps) + " reps total";
+      pc.textContent = (edited ? "≈ " + realPct + base.unitLab : base.note) +
+                       " · " + (sets * reps) + " reps total";
       mid.appendChild(wt); mid.appendChild(sc); mid.appendChild(pc);
       blk.appendChild(mid);
 
-      if (bk.key){
-        var ctl = document.createElement("div"); ctl.className = "wstep";
-        var stepV = GEAR[state.unit].step;
-        [[-stepV, "−" + fmt(stepV)], [stepV, "+" + fmt(stepV)]].forEach(function(o){
-          var bt = document.createElement("button");
-          bt.type = "button"; bt.textContent = o[1];
-          bt.setAttribute("aria-label", (o[0] < 0 ? "Lower " : "Raise ") + fmt(stepV) + " " + state.unit);
-          bt.addEventListener("click", function(){
-            var v = Math.round((weight + o[0]) * 10) / 10;
-            if (v <= 0) return;
-            d.sup[bk.key] = { lb:toLb(v), tm:tmLb() };
-            saveAll(); fillBackup(); renderSup();
-          });
-          ctl.appendChild(bt);
+      var ctl = document.createElement("div"); ctl.className = "wstep";
+      var stepV = GEAR[state.unit].step;
+      [[-stepV, "−" + fmt(stepV)], [stepV, "+" + fmt(stepV)]].forEach(function(o){
+        var bt = document.createElement("button");
+        bt.type = "button"; bt.textContent = o[1];
+        bt.setAttribute("aria-label", (o[0] < 0 ? "Lower " : "Raise ") + fmt(stepV) + " " + state.unit);
+        bt.addEventListener("click", function(){
+          var v = Math.round((weight + o[0]) * 10) / 10;
+          if (v <= 0) return;
+          d.sup[memKey] = { lb:toLb(v), tm:tmLb() };
+          saveAll(); fillBackup(); renderSup();
         });
-        blk.appendChild(ctl);
-      } else {
-        blk.appendChild(document.createElement("div"));
-      }
+        ctl.appendChild(bt);
+      });
+      blk.appendChild(ctl);
 
       /* 지난 기록 + 되돌리기 */
-      if (bk.key){
-        var meta = document.createElement("div"); meta.className = "sup-meta";
-        var last = null;
-        d.history.forEach(function(e){ if (e.k === "s" && e.bk === bk.key && (!last || (e.i || 0) >= (last.i || 0))) last = e; });
-        if (last){
-          var ls = document.createElement("span");
-          ls.textContent = "Last " + fmt(roundBar(toDisp(last.lb))) + " " + state.unit + " · " + last.d.slice(5).replace("-", "/");
-          meta.appendChild(ls);
-        }
-        if (mem && Math.abs(weight - planWeight) > 0.01){
-          var rs = document.createElement("button");
-          rs.type = "button"; rs.className = "linkbtn";
-          rs.textContent = "Reset to " + defPct + "% (" + fmt(planWeight) + ")";
-          rs.addEventListener("click", function(){ delete d.sup[bk.key]; saveAll(); fillBackup(); renderSup(); });
-          meta.appendChild(rs);
-        }
-        if (weight < bar() - 0.01){
-          var lw = document.createElement("span"); lw.className = "warn"; lw.textContent = "Lighter than the bar";
-          meta.appendChild(lw);
-        }
-        if (meta.children.length) blk.appendChild(meta);
+      var meta = document.createElement("div"); meta.className = "sup-meta";
+      var last = null;
+      d.history.forEach(function(e){ if (e.k === "s" && e.bk === memKey && (!last || (e.i || 0) >= (last.i || 0))) last = e; });
+      if (last){
+        var ls = document.createElement("span");
+        ls.textContent = "Last " + fmt(roundBar(toDisp(last.lb))) + " " + state.unit + " · " + last.d.slice(5).replace("-", "/");
+        meta.appendChild(ls);
+      }
+      if (edited){
+        var rs = document.createElement("button");
+        rs.type = "button"; rs.className = "linkbtn";
+        rs.textContent = "Reset to " + fmt(planWeight);
+        rs.addEventListener("click", function(){ delete d.sup[memKey]; saveAll(); fillBackup(); renderSup(); });
+        meta.appendChild(rs);
+      }
+      if (weight < bar() - 0.01){
+        var lw = document.createElement("span"); lw.className = "warn"; lw.textContent = "Lighter than the bar";
+        meta.appendChild(lw);
+      }
+      if (meta.children.length) blk.appendChild(meta);
 
-        /* 사이클이 바뀌어 TM 이 달라졌을 때 */
-        if (mem && typeof mem.tm === "number" && Math.abs(mem.tm - tmLb()) > 0.5){
-          var fl = document.createElement("div"); fl.className = "tmflag";
-          var ft = document.createElement("span");
-          ft.textContent = "TM changed · " + defPct + "% is now " + fmt(planWeight) + " " + state.unit;
-          var ap = document.createElement("button"); ap.type = "button"; ap.className = "fbtn fbtn-main";
-          ap.textContent = "Use " + fmt(planWeight);
-          ap.addEventListener("click", function(){ d.sup[bk.key] = { lb:toLb(planWeight), tm:tmLb() }; saveAll(); fillBackup(); renderSup(); });
-          var kp = document.createElement("button"); kp.type = "button"; kp.className = "fbtn";
-          kp.textContent = "Keep " + fmt(weight);
-          kp.addEventListener("click", function(){ d.sup[bk.key].tm = tmLb(); saveAll(); fillBackup(); renderSup(); });
-          fl.appendChild(ft); fl.appendChild(ap); fl.appendChild(kp);
-          blk.appendChild(fl);
-        }
+      if (mem && typeof mem.tm === "number" && Math.abs(mem.tm - tmLb()) > 0.5){
+        var fl = document.createElement("div"); fl.className = "tmflag";
+        var ft = document.createElement("span");
+        ft.textContent = "TM changed · " + defPct + "% is now " + fmt(planWeight) + " " + state.unit;
+        var ap = document.createElement("button"); ap.type = "button"; ap.className = "fbtn fbtn-main";
+        ap.textContent = "Use " + fmt(planWeight);
+        ap.addEventListener("click", function(){ d.sup[memKey] = { lb:toLb(planWeight), tm:tmLb() }; saveAll(); fillBackup(); renderSup(); });
+        var kp = document.createElement("button"); kp.type = "button"; kp.className = "fbtn";
+        kp.textContent = "Keep " + fmt(weight);
+        kp.addEventListener("click", function(){ d.sup[memKey].tm = tmLb(); saveAll(); fillBackup(); renderSup(); });
+        fl.appendChild(ft); fl.appendChild(ap); fl.appendChild(kp);
+        blk.appendChild(fl);
       }
 
       /* 원판 */
       var candidates = RAMP.slice();
       if (prevBlock) candidates.push(prevBlock);
-      var sp = supPlates(weight, candidates, bi === s.blocks.length - 1);
+      var sp = supPlates(weight, candidates, bi === picked.length - 1);
       var pl = document.createElement("div"); pl.className = "plates";
       pl.appendChild(plateStrip(sp.step));
       blk.appendChild(pl);
@@ -1236,15 +1439,15 @@
         bn.textContent = sp.exact ? "Same plates as " + sp.base.tag : "Based on " + sp.base.tag + " (" + fmt(sp.base.weight) + " " + state.unit + ")";
         blk.appendChild(bn);
       }
-      prevBlock = { tag:bk.lab || s.label, weight:weight, cfg:sp.step.keep.concat(sp.step.add) };
+      prevBlock = { tag:sup.label, weight:weight, cfg:sp.step.keep.concat(sp.step.add) };
 
       var act = document.createElement("div"); act.className = "sup-act";
       var lg = document.createElement("button");
       lg.type = "button"; lg.className = "sup-log";
       lg.textContent = "Log";
-      lg.title = "Log " + bk.sets + " sets × " + bk.reps + " reps at " + fmt(weight) + " " + state.unit;
+      lg.title = "Log " + sets + " sets × " + reps + " reps at " + fmt(weight) + " " + state.unit;
       lg.addEventListener("click", function(){
-        logSup(weight, bk, realPct, s.label + (bk.lab ? " · " + bk.lab : ""));
+        logSup(weight, { sets:sets, reps:reps, key:memKey }, realPct, sup.label);
         var again = document.querySelectorAll(".sup-log")[bi];
         if (again){ again.textContent = "Logged"; again.classList.add("done");
           setTimeout(function(){ again.textContent = "Log"; again.classList.remove("done"); }, 1400); }
@@ -1255,14 +1458,117 @@
       body.appendChild(blk);
     });
 
-    if (multi){
+    if (picked.length > 1){
       var sum = document.createElement("div"); sum.className = "sup-block";
       var t = document.createElement("div"); t.className = "pct";
       t.style.gridColumn = "1 / -1"; t.style.whiteSpace = "normal";
-      t.textContent = "Total " + totalReps + " reps across both blocks — go lighter on WOD days.";
+      t.textContent = totalReps + " reps total · run them " +
+                      picked.map(function(k){ return SUPS[k].label; }).join(" → ") +
+                      ". On WOD days, trim from the back.";
       sum.appendChild(t);
       body.appendChild(sum);
     }
+  }
+
+  /* 조커세트
+     무게 = 야추 3.1: PR세트 % 에서 +7.5%p 씩, 1회 싱글, 최대 3세트.
+     "몇 개 이상" 이라는 성문 규칙은 야추에도 웬들러에도 없다. 대신 웬들러의 절대 규칙
+     "5/3/1 에서는 절대 실패하지 않는다 — 조커세트 포함" 을 산술로 옮긴다:
+     오늘 PR세트에서 나온 추정 1RM(Epley) 이 그 조커 무게에 못 미치면 띄우지 않는다.
+     최종 판단은 바 스피드·컨디션. 이건 바닥선이지 허가증이 아니다. */
+  var JOKER_STEP = 7.5, JOKER_MAX = 3;
+
+  function renderJoker(){
+    var box = $("joker"); box.textContent = "";
+    if (!(cur().oneRM > 0) || isDeload()) return;
+
+    var w = weekObj();
+    if (String(w.work[2][1]).indexOf("+") < 0) return;   /* 351 의 회복주 = AMRAP 없음 */
+
+    var prPct = w.work[2][0], minReps = parseInt(w.work[2][1], 10);
+    var topWeight = setWeight(prPct);
+    var done = state.reps[state.lift];
+    if (!(typeof done === "number" && done >= minReps)) return;   /* 최소 반복수는 채워야 한다 */
+
+    var est = e1rm(topWeight, done);
+    var jk = [];
+    for (var i = 0; i < JOKER_MAX; i++){
+      var pct = prPct + JOKER_STEP * (i + 1);
+      jk.push({ pct:pct, weight:setWeight(pct) });
+    }
+    if (est < jk[0].weight) return;                      /* 오늘은 못 든다 → 아예 안 나타남 */
+
+    var reach = jk.filter(function(j){ return j.weight <= est + 0.01; }).length;
+
+    var wrap = document.createElement("div"); wrap.className = "jk";
+    var h = document.createElement("div"); h.className = "jk-h";
+    var t = document.createElement("span"); t.className = "t"; t.textContent = "Joker";
+    var f = document.createElement("span"); f.className = "f"; f.textContent = "Bonus singles.";
+    var go = document.createElement("button");
+    go.type = "button"; go.className = "jk-go" + (state.jokerOpen ? " on" : "");
+    go.textContent = state.jokerOpen ? "All eyes on you" : "Click if you dare";
+    go.addEventListener("click", function(){ state.jokerOpen = !state.jokerOpen; renderJoker(); });
+    h.appendChild(t); h.appendChild(f); h.appendChild(go);
+    wrap.appendChild(h);
+
+    if (!state.jokerOpen){ box.appendChild(wrap); return; }
+
+    var g = document.createElement("p"); g.className = "jk-gate";
+    g.innerHTML = "This is not about rep count — it is <b>bar speed and how you feel</b>. " +
+                  "If the bar was still moving fast and clean when you racked it, go.";
+    wrap.appendChild(g);
+
+    var sub = document.createElement("p"); sub.className = "jk-sub";
+    sub.textContent = "Today " + fmt(topWeight) + " " + state.unit + " x " + done + " → e1RM " +
+                      fmt(roundBar(est)) + " " + state.unit + ". " + reach + " of " + JOKER_MAX + " within reach.";
+    wrap.appendChild(sub);
+
+    var list = document.createElement("div"); list.className = "jk-list";
+    var prev = null;
+    jk.forEach(function(j, i){
+      var far = j.weight > est + 0.01;
+      var row = document.createElement("div");
+      row.className = "jk-row" + (far ? " far" : "");
+      row.style.animationDelay = (0.06 + i * 0.1) + "s";
+
+      var n = document.createElement("div"); n.className = "n"; n.textContent = "Joker " + (i + 1);
+      var wt = document.createElement("div"); wt.className = "w";
+      wt.appendChild(document.createTextNode(fmt(j.weight)));
+      var em = document.createElement("em"); em.textContent = state.unit; wt.appendChild(em);
+      var pc = document.createElement("div"); pc.className = "p";
+      pc.textContent = far ? "Past today's e1RM · skip it" : fmt(j.pct) + "% TM x 1";
+      row.appendChild(n); row.appendChild(wt); row.appendChild(pc);
+
+      var cand = RAMP.slice(); if (prev) cand.push(prev);
+      var sp = supPlates(j.weight, cand, i === jk.length - 1);
+      var pl = document.createElement("div"); pl.className = "plates";
+      pl.appendChild(plateStrip(sp.step));
+      row.appendChild(pl);
+      prev = { tag:"Joker " + (i + 1), weight:j.weight, cfg:sp.step.keep.concat(sp.step.add) };
+
+      if (!far){
+        var act = document.createElement("div"); act.className = "jact";
+        var lg = document.createElement("button");
+        lg.type = "button"; lg.className = "jlog"; lg.textContent = "Log";
+        lg.title = "Log a single at " + fmt(j.weight) + " " + state.unit;
+        lg.addEventListener("click", function(){
+          pushHist({ lb:toLb(j.weight), reps:1, pct:j.pct, k:"j", lab:"Joker " + (i + 1) });
+          lg.textContent = "Logged"; lg.classList.add("done");
+          setTimeout(function(){ lg.textContent = "Log"; lg.classList.remove("done"); }, 1400);
+        });
+        act.appendChild(lg);
+        row.appendChild(act);
+      }
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+
+    var tip = document.createElement("p"); tip.className = "jk-sub";
+    tip.textContent = "Three minutes between singles. This is not a set you miss — if you doubt the next one, stop there. " +
+                      "Zero jokers is a fine day; two is typical.";
+    wrap.appendChild(tip);
+
+    box.appendChild(wrap);
   }
 
   function e1rm(weight, reps){ return (!reps || reps < 1) ? 0 : (reps === 1 ? weight : weight * (1 + reps / 30)); }
@@ -1297,7 +1603,7 @@
       row.className = "hrow" + (isSup ? " sup" : (Math.abs(est - best) < 0.5 ? " best" : ""));
       var d = document.createElement("div"); d.className = "d"; d.textContent = e.d.slice(5).replace("-", "/");
       var w = document.createElement("div"); w.className = "w";
-      w.textContent = isSup ? "Supp" : (WEEKS[e.w] ? WEEKS[e.w].tag : "");
+      w.textContent = isSup ? "Supp" : (e.k === "j" ? "Joker" : (WEEKS[e.w] ? WEEKS[e.w].tag : ""));
       var s = document.createElement("div"); s.className = "s";
       s.textContent = fmt(roundBar(toDisp(e.lb))) + " " + state.unit;
       var sub = document.createElement("span"); sub.className = "hsub";
@@ -1528,7 +1834,12 @@
     btn.addEventListener("click", function(){
       var v = parseFloat(pin.value);
       if (!isFinite(v) || v <= 0 || v > 300){ pin.focus(); return; }
-      setSlots(m.id, moveSlots(m.id).concat([{ p:v, l:"" }]));
+      var cur = moveSlots(m.id);
+      var plain = cur.filter(function(x){ return !x.l; });
+      var asc = plain.length >= 2 ? slotsAsc(plain) : false;   /* 기본은 내림차순 */
+      plain = plain.concat([{ p:v, l:"" }]).sort(function(a, b){ return asc ? a.p - b.p : b.p - a.p; });
+      setSlots(m.id, plain.concat(cur.filter(function(x){ return !!x.l; })));
+      pin.value = "";
       renderMoves();
     });
     var srt = document.createElement("button");
@@ -1703,6 +2014,7 @@
   function renderAll(){
     $("u-lb").setAttribute("aria-pressed", String(state.unit === "lb"));
     $("u-kg").setAttribute("aria-pressed", String(state.unit === "kg"));
+    state.jokerOpen = false;   /* 종목·주차가 바뀌면 다시 접어둔다 (매번 새로 뜨게) */
     renderLifts(); renderWeeks(); renderOpts(); renderTM(); renderSets(); renderSup(); renderHist();
     renderMoves(); setTab(state.tab);
   }
@@ -1779,7 +2091,7 @@
   function pushHist(entry){
     var d = cur();
     entry.d = new Date().toISOString().slice(0,10);
-    entry.w = state.week;
+    entry.w = weekKey();
     entry.i = Date.now();
     d.history.push(entry);
     if (d.history.length > HIST_CAP) d.history = d.history.slice(-HIST_CAP);
@@ -1868,6 +2180,16 @@
   $("t-max").addEventListener("click", function(){ setTab("max"); });
 
   loadAll();
+  /* 한 번만: 저장된 순서에서도 Deadlift 를 Front Squat 뒤로 옮긴다 */
+  if (prefGet("dlmoved","0") !== "1"){
+    var di = -1, fi = -1;
+    MOVES.forEach(function(m, i){ if (m.id === "deadlift") di = i; if (m.id === "front-squat") fi = i; });
+    if (di > -1 && fi > -1 && di > fi + 1){
+      MOVES.splice(fi + 1, 0, MOVES.splice(di, 1)[0]);
+      syncLifts(); saveAll();
+    }
+    prefSet("dlmoved", "1");
+  }
   renderAll();
   fillBackup();
   $("storage").textContent = "Each person who opens this link keeps their own logs on their own device.";
@@ -1875,7 +2197,7 @@
 </script>
 <script>
   (function(){
-    var CURRENT = "26.09.20-5";
+    var CURRENT = "26.09.22-13";
     var btn = document.getElementById("upd");
     var latest = null;
 

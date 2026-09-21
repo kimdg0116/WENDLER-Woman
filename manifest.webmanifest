@@ -1,8 +1,8 @@
 {
   "name": "Wendler 5/3/1 W",
   "short_name": "Wendler W",
-  "description": "웬들러 5/3/1 세트·원판 계산기",
-  "lang": "ko",
+  "description": "Wendler 5/3/1 set and plate calculator",
+  "lang": "en",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
