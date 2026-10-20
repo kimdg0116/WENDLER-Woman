@@ -121,6 +121,7 @@
     width:36px;height:30px;font-size:14px;line-height:1;display:grid;place-items:center;
     color:var(--ink-2);padding:0;
   }
+  .icon-btn svg{width:16px;height:16px}
   :root[data-theme="light"]{color-scheme:light}
   :root[data-theme="dark"]{color-scheme:dark}
   .unit-sw{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface);flex:none}
@@ -599,7 +600,7 @@
 (function(){
   "use strict";
 
-  var APP_VERSION = "26.09.22-13";
+  var APP_VERSION = "26.10.20-1";
 
   /* 확대 막기 — 두 손가락 핀치, 더블탭 */
   (function(){
@@ -1640,7 +1641,13 @@
   }
 
   var THEME_ORDER = ["system","light","dark"];
-  var THEME_ICON  = { system:"\u25D0", light:"\u2600", dark:"\u263E" };
+  // 아이콘은 SVG (글자 ◐ ☀ ☾ 는 폰에서 이모지로 그려진다)
+  function svgIcon(d){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
+  var THEME_ICON  = {
+    system: svgIcon('<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>'),
+    light: svgIcon('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
+    dark: svgIcon('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>')
+  };
   var THEME_NAME  = { system:"System", light:"Light", dark:"Dark" };
   state.theme = (function(){
     var v = prefGet("theme", "");
@@ -1653,7 +1660,7 @@
     if (state.theme === "system") r.removeAttribute("data-theme");
     else r.setAttribute("data-theme", state.theme);
     var b = $("theme");
-    b.textContent = THEME_ICON[state.theme];
+    b.innerHTML = THEME_ICON[state.theme];
     b.title = "Theme: " + THEME_NAME[state.theme] + " (tap to change)";
     b.setAttribute("aria-label", "Theme — " + THEME_NAME[state.theme]);
     var dark = state.theme === "dark" ||
@@ -2197,7 +2204,7 @@
 </script>
 <script>
   (function(){
-    var CURRENT = "26.09.22-13";
+    var CURRENT = "26.10.20-1";
     var btn = document.getElementById("upd");
     var latest = null;
 
